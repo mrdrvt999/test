@@ -106,7 +106,7 @@ jobs:
           fi
           echo "YOUPRO_VERSION=$(grep '^Version:' control | awk '{print $2}' | tr -d '\r')" >> $GITHUB_ENV
           cd .. && rm -rf _deb_extract
-
+          
       - name: Install cyan and ldid
         run: |
           pipx install --force https://github.com/asdfzxcvbn/pyzule-rw/archive/main.zip
@@ -121,14 +121,10 @@ jobs:
           cyan -i youtube.ipa -o YouProExtra_${{ env.YT_VERSION }}_${{ env.YOUPRO_VERSION }}.ipa -uwef $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
           IPA_FILE=$(ls *.ipa | head -n1)
           unzip -q "$IPA_FILE" -d lc_sign
-          APP_DIR=$(ls -d lc_sign/Payload/*.app)
-          find "$APP_DIR/Frameworks" -name "*.dylib" | while read -r f; do ldid -S "$f"; done
-          find "$APP_DIR/Frameworks" -type d -name "*.framework" | while read -r fw; do
-            bin="$fw/$(basename "$fw" .framework)"
-            [ -f "$bin" ] && ldid -S "$bin"
+          find lc_sign/Payload/*.app/Frameworks -name "*.dylib" -o -name "*.framework" | while read f; do
+            ldid -S "$f"
           done
-          BINARY=$(plutil -extract CFBundleExecutable raw "$APP_DIR/Info.plist")
-          ldid -S "$APP_DIR/$BINARY"
+          ldid -S lc_sign/Payload/*.app/$(plutil -extract CFBundleExecutable raw lc_sign/Payload/*.app/Info.plist)
           cd lc_sign && zip -qr "../$IPA_FILE" Payload
           cd .. && rm -rf lc_sign
 
