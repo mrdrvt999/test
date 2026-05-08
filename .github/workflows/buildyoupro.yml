@@ -1,0 +1,145 @@
+name: Build YouPro IPA
+
+on:
+  workflow_dispatch:
+    inputs:
+      ipa_url:
+        description: "URL to the decrypted IPA file"
+        default: ""
+        required: true
+        type: string
+
+      display_name:
+        description: "App Name (Optional)"
+        default: "YouTube"
+        required: true
+        type: string
+
+      bundle_id:
+        description: "Bundle ID (Optional)"
+        default: "com.google.ios.youtube"
+        required: true
+        type: string
+
+      demc:
+        description: "Integrate DontEatMyContent"
+        default: true
+        required: false
+        type: boolean
+
+      isponsorblock:
+        description: "Integrate iSponsorBlock"
+        default: true
+        required: false
+        type: boolean
+        
+      ythold:
+        description: "Integrate YTHoldForSpeed"
+        default: false
+        required: false
+        type: boolean
+        
+      nativeshare:
+        description: "Integrate YTNativeShare"
+        default: false
+        required: false
+        type: boolean
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-tweaks:
+    uses: ./.github/workflows/_build_tweaks.yml
+    with:
+      youpro: true
+      isponsorblock: ${{ inputs.isponsorblock }}
+      demc: ${{ inputs.demc }}
+      ythold: ${{ inputs.ythold }}
+      nativeshare: ${{ inputs.nativeshare }}
+      
+  package:
+    name: Build YouPro IPA
+    runs-on: macos-latest
+    needs: build-tweaks
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download Built Debs
+        uses: actions/download-artifact@v4
+        with:
+          name: built-debs
+          path: ${{ github.workspace }}
+
+      - name: Hide Sensitive Inputs
+        uses: levibostian/action-hide-sensitive-inputs@v1
+        with:
+          exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold,nativeshare
+
+      - name: Download and Validate IPA
+        run: |
+          wget "${{ inputs.ipa_url }}" --quiet --no-verbose -O youtube.ipa
+          file_type=$(file --mime-type -b youtube.ipa)
+          if [[ "$file_type" != "application/x-ios-app" && "$file_type" != "application/zip" ]]; then
+            echo "::error::Validation failed: The downloaded file is not a valid IPA. Detected type: $file_type."
+            exit 1
+          fi
+
+      - name: Get YouTube Version
+        run: |
+          unzip -q youtube.ipa -d ytextracted
+          echo "YT_VERSION=$(grep -A 1 '<key>CFBundleVersion</key>' ytextracted/Payload/YouTube.app/Info.plist | grep '<string>' | awk -F'[><]' '{print $3}')" >> $GITHUB_ENV
+          
+      - name: Get YouPro Version
+        run: |
+          ar x YouPro.deb >/dev/null 2>&1
+          if [ -f control.tar.gz ]; then
+            tar -xzf control.tar.gz ./control
+          elif [ -f control.tar.xz ]; then
+            tar -xJf control.tar.xz ./control
+          elif [ -f control.tar.zst ]; then
+            tar --zstd -xf control.tar.zst ./control
+          fi
+          echo "YOUPRO_VERSION=$(grep '^Version:' control | awk '{print $2}' | tr -d '\r')" >> $GITHUB_ENV
+
+      - name: Install cyan and ldid
+        run: |
+          pipx install --force https://github.com/asdfzxcvbn/pyzule-rw/archive/main.zip
+          brew install ldid
+
+      - name: Inject Tweaks Into IPA
+        run: |
+          tweaks="OpenYouTubeSafariExtension.appex"
+          for f in *.deb; do
+            [ -f "$f" ] && tweaks="$tweaks $f"
+          done
+          cyan -i youtube.ipa -o YouProExtra_${{ env.YT_VERSION }}_${{ env.YOUPRO_VERSION }}.ipa -uwef $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
+          IPA_FILE=$(ls *.ipa | head -n1)
+          unzip -q "$IPA_FILE" -d lc_sign
+          find lc_sign/Payload/*.app/Frameworks -name "*.dylib" -o -name "*.framework" | while read f; do
+            ldid -S "$f"
+          done
+          ldid -S lc_sign/Payload/*.app/$(plutil -extract CFBundleExecutable raw lc_sign/Payload/*.app/Info.plist)
+          cd lc_sign && zip -qr "../$IPA_FILE" Payload
+          cd .. && rm -rf lc_sign
+
+      - name: Create a Draft Release
+        uses: softprops/action-gh-release@v2.6.2
+        with:
+          tag_name: youproextra-ipa${{ github.run_number }}
+          name: YouProExtra_${{ env.YT_VERSION }}_${{ env.YOUPRO_VERSION }} (${{ github.run_number }})
+          files: YouProExtra_${{ env.YT_VERSION }}_${{ env.YOUPRO_VERSION }}.ipa
+          draft: true
+
+      - name: Job Summary - Build Complete
+        run: echo -e '### 🛠️ Build YouPro IPA Complete!' >> $GITHUB_STEP_SUMMARY
+
+      - name: Job Summary - Output the Draft Release Link
+        run: |
+          echo -e "### 🚀 Draft Release\n\nDraft release has been created successfully! You can view your release here: https://github.com/${{ github.repository }}/releases" >> $GITHUB_STEP_SUMMARY
+
+      - name: Job Summary - Cleanup
+        run: |
+          echo -e "### 🧹 Cleanup\n\nYou can remove previous GitHub Actions run here: https://github.com/${{ github.repository }}/actions/workflows/delete-old-workflows-run.yml And if you want to delete old draft releases you have then here: https://github.com/${{ github.repository }}/actions/workflows/delete-old-draft-releases.yml" >> $GITHUB_STEP_SUMMARY
