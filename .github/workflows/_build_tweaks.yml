@@ -151,7 +151,6 @@ jobs:
           cd YouPro
           chmod -R 755 .
           dpkg-deb --root-owner-group -Zgzip --build . ../YouPro.deb
-          mv ../YouPro.deb ${{ github.workspace }}/YouPro.deb
           
       - name: Clone and Build YouPiP
         if: steps.cache_tweaks.outputs.cache_youpip_hit != 'true'
