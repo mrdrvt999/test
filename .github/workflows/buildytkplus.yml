@@ -323,7 +323,7 @@ jobs:
           for f in *.deb; do
             [ -f "$f" ] && tweaks="$tweaks $f"
           done
-          cyan -i youtube.ipa -o YTKillerPlus_${{ env.YT_VERSION }}_${{ env.YTKP_VERSION }}.ipa -uwsfg $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
+          cyan -i youtube.ipa -o YTKillerPlus_${{ env.YT_VERSION }}_${{ env.YTKP_VERSION }}.ipa -uwsfg -f $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
 
           unzip -q YTKillerPlus_${{ env.YT_VERSION }}_${{ env.YTKP_VERSION }}.ipa -d ipa_final
           rm -rf ipa_final/Payload/YouTube.app/Frameworks/CydiaSubstrate.framework
