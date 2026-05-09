@@ -111,12 +111,10 @@ jobs:
           for f in *.deb; do
             [ -f "$f" ] && tweaks="$tweaks $f"
           done
-          cyan -i youtube.ipa -o YouProExtra_IPA_${{ env.YT_VERSION }}.ipa -uwf $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
-          IPA_FILE=$(ls *.ipa | head -n1)
+          cyan -i youtube.ipa -o YouProExtra_NoYTLite_${{ env.YT_VERSION }}.ipa -uwef $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
+          IPA_FILE="YouProExtra_NoYTLite_${{ env.YT_VERSION }}.ipa"
           unzip -q "$IPA_FILE" -d lc_sign
-          find lc_sign/Payload/*.app/Frameworks -name "*.dylib" -o -name "*.framework" | while read f; do
-            ldid -S "$f"
-          done
+          find lc_sign/Payload -type f \( -name "*.dylib" -o -name "*.framework" \) -print0 | xargs -0 ldid -S
           ldid -S lc_sign/Payload/*.app/$(plutil -extract CFBundleExecutable raw lc_sign/Payload/*.app/Info.plist)
           cd lc_sign && zip -qr "../$IPA_FILE" Payload
           cd .. && rm -rf lc_sign
@@ -125,8 +123,8 @@ jobs:
         uses: softprops/action-gh-release@v2.6.2
         with:
           tag_name: youproextra-noytlite-ipa${{ github.run_number }}
-          name: YouProExtra_IPA_${{ env.YT_VERSION }} (${{ github.run_number }})
-          files: YouProExtra_IPA_${{ env.YT_VERSION }}.ipa
+          name: YouProExtra_NoYTLite_${{ env.YT_VERSION }} (${{ github.run_number }})
+          files: YouProExtra_NoYTLite_${{ env.YT_VERSION }}.ipa
           draft: true
 
       - name: Job Summary - Build Complete

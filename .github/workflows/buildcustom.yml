@@ -134,7 +134,7 @@ jobs:
           fi
           echo "CUSTOM_DEB_VERSION=$VERSION" >> $GITHUB_ENV
           cd .. && rm -rf _deb_extract
-          
+
       - name: Get YouTube Version
         run: |
           unzip -q youtube.ipa -d ytextracted
@@ -152,12 +152,10 @@ jobs:
           for f in *.deb; do
             [ -f "$f" ] && tweaks="$tweaks $f"
           done
-          cyan -i youtube.ipa -o YouProCustom_${{ env.YT_VERSION }}_v${{ env.CUSTOM_DEB_VERSION }}.ipa -uwf $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
-          IPA_FILE=$(ls *.ipa | head -n1)
+          cyan -i youtube.ipa -o YouProExtra_${{ env.YT_VERSION }}_v${{ env.CUSTOM_DEB_VERSION }}.ipa -uwef $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
+          IPA_FILE="YouProExtra_${{ env.YT_VERSION }}_v${{ env.CUSTOM_DEB_VERSION }}.ipa"
           unzip -q "$IPA_FILE" -d lc_sign
-          find lc_sign/Payload/*.app/Frameworks -name "*.dylib" -o -name "*.framework" | while read f; do
-            ldid -S "$f"
-          done
+          find lc_sign/Payload -type f \( -name "*.dylib" -o -name "*.framework" \) -print0 | xargs -0 ldid -S
           ldid -S lc_sign/Payload/*.app/$(plutil -extract CFBundleExecutable raw lc_sign/Payload/*.app/Info.plist)
           cd lc_sign && zip -qr "../$IPA_FILE" Payload
           cd .. && rm -rf lc_sign
@@ -166,8 +164,8 @@ jobs:
         uses: softprops/action-gh-release@v2.6.2
         with:
           tag_name: youproextra-customdeb-ipa${{ github.run_number }}
-          name: YouProCustom_${{ env.YT_VERSION }}_v${{ env.CUSTOM_DEB_VERSION }} (${{ github.run_number }})
-          files: YouProCustom_${{ env.YT_VERSION }}_v${{ env.CUSTOM_DEB_VERSION }}.ipa
+          name: YouProExtra_${{ env.YT_VERSION }}_v${{ env.CUSTOM_DEB_VERSION }} (${{ github.run_number }})
+          files: YouProExtra_${{ env.YT_VERSION }}_v${{ env.CUSTOM_DEB_VERSION }}.ipa
           draft: true
 
       - name: Job Summary - Build Complete

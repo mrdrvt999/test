@@ -95,8 +95,8 @@ jobs:
           
       - name: Get YouPro Version
         run: |
-          mkdir _deb_extract && cd _deb_extract
-          ar x ../YouPro.deb >/dev/null 2>&1
+          mkdir _youpro_extract && cd _youpro_extract
+          ar x "../YouPro.deb" >/dev/null 2>&1
           if [ -f control.tar.gz ]; then
             tar -xzf control.tar.gz ./control
           elif [ -f control.tar.xz ]; then
@@ -105,8 +105,8 @@ jobs:
             tar --zstd -xf control.tar.zst ./control
           fi
           echo "YOUPRO_VERSION=$(grep '^Version:' control | awk '{print $2}' | tr -d '\r')" >> $GITHUB_ENV
-          cd .. && rm -rf _deb_extract
-          
+          cd .. && rm -rf _youpro_extract
+
       - name: Install cyan and ldid
         run: |
           pipx install --force https://github.com/asdfzxcvbn/pyzule-rw/archive/main.zip
@@ -118,12 +118,10 @@ jobs:
           for f in *.deb; do
             [ -f "$f" ] && tweaks="$tweaks $f"
           done
-          cyan -i youtube.ipa -o YouProExtra_${{ env.YT_VERSION }}_${{ env.YOUPRO_VERSION }}.ipa -uwf $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
-          IPA_FILE=$(ls *.ipa | head -n1)
+          cyan -i youtube.ipa -o YouProExtra_${{ env.YT_VERSION }}_${{ env.YOUPRO_VERSION }}.ipa -uwef $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
+          IPA_FILE="YouProExtra_${{ env.YT_VERSION }}_${{ env.YOUPRO_VERSION }}.ipa"
           unzip -q "$IPA_FILE" -d lc_sign
-          find lc_sign/Payload/*.app/Frameworks -name "*.dylib" -o -name "*.framework" | while read f; do
-            ldid -S "$f"
-          done
+          find lc_sign/Payload -type f \( -name "*.dylib" -o -name "*.framework" \) -print0 | xargs -0 ldid -S
           ldid -S lc_sign/Payload/*.app/$(plutil -extract CFBundleExecutable raw lc_sign/Payload/*.app/Info.plist)
           cd lc_sign && zip -qr "../$IPA_FILE" Payload
           cd .. && rm -rf lc_sign

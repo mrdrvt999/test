@@ -151,6 +151,7 @@ jobs:
           cd YouPro
           chmod -R 755 .
           dpkg-deb --root-owner-group -Zgzip --build . ../YouPro.deb
+          mv ../YouPro.deb ${{ github.workspace }}/YouPro.deb
           
       - name: Clone and Build YouPiP
         if: steps.cache_tweaks.outputs.cache_youpip_hit != 'true'
@@ -163,7 +164,7 @@ jobs:
         if: steps.cache_tweaks.outputs.cache_ytuhd_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/Tonwalter888/YTUHD.git
-          cd YTUHD && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless SIDELOAD=1
+          cd YTUHD && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/ytuhd.deb
 
       - name: Clone and Build Return-YouTube-Dislikes
