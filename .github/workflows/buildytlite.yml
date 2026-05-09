@@ -324,12 +324,15 @@ jobs:
             [ -f "$f" ] && tweaks="$tweaks $f"
           done
           cyan -i youtube.ipa -o YouTubePlus_${{ env.YT_VERSION }}_${{ env.YTL_VERSION }}.ipa -uwf $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
+          
           IPA_FILE="YouTubePlus_${{ env.YT_VERSION }}_${{ env.YTL_VERSION }}.ipa"
           unzip -q "$IPA_FILE" -d lc_sign
+          APP_BINARY=$(plutil -extract CFBundleExecutable raw lc_sign/Payload/*.app/Info.plist)
+          ldid -e "lc_sign/Payload/YouTube.app/$APP_BINARY" > ents.plist
           find lc_sign/Payload -type f \( -name "*.dylib" -o -name "*.framework" \) -print0 | xargs -0 ldid -S
-          ldid -S lc_sign/Payload/*.app/$(plutil -extract CFBundleExecutable raw lc_sign/Payload/*.app/Info.plist)
+          ldid -Sents.plist "lc_sign/Payload/YouTube.app/$APP_BINARY"
           cd lc_sign && zip -qr "../$IPA_FILE" Payload
-          cd .. && rm -rf lc_sign
+          cd .. && rm -rf lc_sign ents.plist
 
       - name: Create a Draft Release
         uses: softprops/action-gh-release@v2.6.2
