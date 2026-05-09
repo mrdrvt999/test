@@ -67,7 +67,7 @@ jobs:
       youpro: false
 
   package:
-    name: Build IPA with external tweaks
+    name: Build IPA
     runs-on: macos-latest
     needs: build-tweaks
     permissions:
