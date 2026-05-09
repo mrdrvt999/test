@@ -222,7 +222,8 @@ jobs:
           echo "YTL_VERSION=$(grep '^Version:' DEBIAN/control | awk '{print $2}')" >> $GITHUB_ENV
           chmod -R 755 .
           dpkg-deb --root-owner-group -Zgzip --build . ../ytlite.deb
-
+          mv ../ytlite.deb ${{ github.workspace }}/ytlite.deb
+          
       - name: Clone and Build YouPiP
         if: inputs.youpip == true && steps.cache_tweaks.outputs.cache_youpip_hit != 'true'
         run: |

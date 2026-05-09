@@ -222,6 +222,7 @@ jobs:
           echo "YTKP_VERSION=$(grep '^Version:' DEBIAN/control | awk '{print $2}')" >> $GITHUB_ENV
           chmod -R 755 .
           dpkg-deb --root-owner-group -Zgzip --build . ../ytkplus.deb
+          mv ../ytkplus.deb ${{ github.workspace }}/ytkplus.deb
 
       - name: Clone and Build YouPiP
         if: inputs.youpip == true && steps.cache_tweaks.outputs.cache_youpip_hit != 'true'
