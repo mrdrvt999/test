@@ -103,14 +103,21 @@ jobs:
             tar -xJf control.tar.xz ./control
           elif [ -f control.tar.zst ]; then
             tar --zstd -xf control.tar.zst ./control
+          else
+            echo "::error::Could not find control tarball in YouPro.deb"
+            exit 1
           fi
-          echo "YOUPRO_VERSION=$(grep '^Version:' control | awk '{print $2}' | tr -d '\r')" >> $GITHUB_ENV
+          VERSION=$(grep '^Version:' control | awk '{print $2}' | tr -d '\r')
+          if [ -z "$VERSION" ]; then
+            echo "::error::Could not extract version from YouPro.deb control file"
+            exit 1
+          fi
+          echo "YOUPRO_VERSION=$VERSION" >> $GITHUB_ENV
           cd .. && rm -rf _youpro_extract
 
-      - name: Install cyan and ldid
+      - name: Install cyan
         run: |
           pipx install --force https://github.com/asdfzxcvbn/pyzule-rw/archive/main.zip
-          brew install ldid
 
       - name: Inject Tweaks Into IPA
         run: |
