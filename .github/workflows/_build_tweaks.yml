@@ -299,28 +299,28 @@ jobs:
           cd YTVideoErrorAlert && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/ytvideoerror.deb
           
-      - name: Clone and Build YTHoldForSpeed
-        if: inputs.ythold == true && steps.cache_tweaks.outputs.cache_ythold_hit != 'true'
-        run: |
-          git clone --quiet --depth=1 https://github.com/joshuaseltzer/YTHoldForSpeed.git
-          cd YTHoldForSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:latest:15.0 
-          mv packages/*.deb ${{ github.workspace }}/ythold.deb
+#      - name: Clone and Build YTHoldForSpeed
+#        if: inputs.ythold == true && steps.cache_tweaks.outputs.cache_ythold_hit != 'true'
+#        run: |
+#          git clone --quiet --depth=1 https://github.com/joshuaseltzer/YTHoldForSpeed.git
+#          cd YTHoldForSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:latest:15.0 
+#          mv packages/*.deb ${{ github.workspace }}/ythold.deb
 
-      - name: Clone and Build VolumeBoostYT
-        if: inputs.volumeboost == true && steps.cache_tweaks.outputs.cache_volumeboost_hit != 'true'
-        run: |
-          git clone --quiet --depth=1 https://github.com/VasirakCalgux/VolumeBoostYT.git
-          cd VolumeBoostYT && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
-          mv packages/*.deb ${{ github.workspace }}/volumeboost.deb
+#      - name: Clone and Build VolumeBoostYT
+#        if: inputs.volumeboost == true && steps.cache_tweaks.outputs.cache_volumeboost_hit != 'true'
+#        run: |
+#          git clone --quiet --depth=1 https://github.com/VasirakCalgux/VolumeBoostYT.git
+#          cd VolumeBoostYT && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
+#          mv packages/*.deb ${{ github.workspace }}/volumeboost.deb
           
-      - name: Clone and Build YTNativeShare
-        if: inputs.nativeshare == true && steps.cache_tweaks.outputs.cache_nativeshare_hit != 'true'
-        run: |
-          git clone --quiet --depth=1 https://github.com/jkhsjdhjs/youtube-native-share.git
-          cd youtube-native-share
-          git clone --quiet --depth=1 https://github.com/protocolbuffers/protobuf.git
-          make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
-          mv packages/*.deb ${{ github.workspace }}/nativeshare.deb
+#      - name: Clone and Build YTNativeShare
+#        if: inputs.nativeshare == true && steps.cache_tweaks.outputs.cache_nativeshare_hit != 'true'
+#        run: |
+#          git clone --quiet --depth=1 https://github.com/jkhsjdhjs/youtube-native-share.git
+#          cd youtube-native-share
+#          git clone --quiet --depth=1 https://github.com/protocolbuffers/protobuf.git
+#          make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
+#          mv packages/*.deb ${{ github.workspace }}/nativeshare.deb
 
       - name: Upload Built Debs as Artifacts
         uses: actions/upload-artifact@v4
