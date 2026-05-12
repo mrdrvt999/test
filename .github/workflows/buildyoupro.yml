@@ -39,11 +39,11 @@ on:
         required: false
         type: boolean
         
-#      nativeshare:
-#        description: "Integrate YTNativeShare"
-#        default: false
-#        required: false
-#        type: boolean
+      nativeshare:
+        description: "Integrate YTNativeShare"
+        default: false
+        required: false
+        type: boolean
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -57,7 +57,7 @@ jobs:
       isponsorblock: ${{ inputs.isponsorblock }}
       demc: ${{ inputs.demc }}
       ythold: ${{ inputs.ythold }}
-#      nativeshare: ${{ inputs.nativeshare }}
+      nativeshare: ${{ inputs.nativeshare }}
       
   package:
     name: Build YouPro IPA
@@ -76,7 +76,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@v1
         with:
-          exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold
+          exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold,nativeshare
 
       - name: Download and Validate IPA
         run: |
