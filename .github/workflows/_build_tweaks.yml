@@ -313,14 +313,14 @@ jobs:
           cd VolumeBoostYT && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
           mv packages/*.deb ${{ github.workspace }}/volumeboost.deb
           
-      - name: Clone and Build YTNativeShare
-        if: inputs.nativeshare == true && steps.cache_tweaks.outputs.cache_nativeshare_hit != 'true'
-        run: |
-          git clone --quiet --depth=1 https://github.com/jkhsjdhjs/youtube-native-share.git
-          cd youtube-native-share
-          git clone --quiet --depth=1 https://github.com/protocolbuffers/protobuf.git
-          make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
-          mv packages/*.deb ${{ github.workspace }}/nativeshare.deb
+#      - name: Clone and Build YTNativeShare
+#        if: inputs.nativeshare == true && steps.cache_tweaks.outputs.cache_nativeshare_hit != 'true'
+#        run: |
+#          git clone --quiet --depth=1 https://github.com/jkhsjdhjs/youtube-native-share.git
+#          cd youtube-native-share
+#          git clone --quiet --depth=1 https://github.com/protocolbuffers/protobuf.git
+#          make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
+#          mv packages/*.deb ${{ github.workspace }}/nativeshare.deb
 
       - name: Upload Built Debs as Artifacts
         uses: actions/upload-artifact@v4
