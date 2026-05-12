@@ -324,6 +324,21 @@ jobs:
           done
           cyan -i youtube.ipa -o YouTubePlus_${{ env.YT_VERSION }}_${{ env.YTL_VERSION }}.ipa -uwsfg -f $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
           
+          IPA_NAME="YouTubePlus_${{ env.YT_VERSION }}_${{ env.YTL_VERSION }}.ipa"
+          ORIGINAL_BUNDLE="com.google.ios.youtube"
+          NEW_BUNDLE="${{ inputs.bundle_id }}"
+          unzip -q "$IPA_NAME" -d ipa_fix
+          find ipa_fix -name "*.appex" -type d | while read appex; do
+            plist="$appex/Info.plist"
+            ext_id=$(plutil -extract CFBundleIdentifier raw "$plist" 2>/dev/null)
+            if [[ "$ext_id" == "$ORIGINAL_BUNDLE."* ]]; then
+                suffix="${ext_id#$ORIGINAL_BUNDLE}"
+                plutil -replace CFBundleIdentifier -string "$NEW_BUNDLE$suffix" "$plist"
+            fi
+          done
+          cd ipa_fix && zip -qr "../$IPA_NAME" Payload && cd ..
+          rm -rf ipa_fix   
+              
       - name: Create a Draft Release
         uses: softprops/action-gh-release@v2.6.2
         with:
