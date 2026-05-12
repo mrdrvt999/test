@@ -33,11 +33,11 @@ on:
         required: false
         type: boolean
         
-#      ythold:
-#        description: "Integrate YTHoldForSpeed"
-#        default: false
-#        required: false
-#        type: boolean
+      ythold:
+        description: "Integrate YTHoldForSpeed"
+        default: false
+        required: false
+        type: boolean
         
 #      nativeshare:
 #        description: "Integrate YTNativeShare"
@@ -56,7 +56,7 @@ jobs:
       youpro: true
       isponsorblock: ${{ inputs.isponsorblock }}
       demc: ${{ inputs.demc }}
-#      ythold: ${{ inputs.ythold }}
+      ythold: ${{ inputs.ythold }}
 #      nativeshare: ${{ inputs.nativeshare }}
       
   package:
@@ -76,7 +76,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@v1
         with:
-          exclude_inputs: bundle_id,display_name,demc,isponsorblock
+          exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold
 
       - name: Download and Validate IPA
         run: |
