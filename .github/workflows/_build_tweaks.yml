@@ -194,33 +194,33 @@ jobs:
           cd YouQuality && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/youquality.deb
 
-#      - name: Clone and Build YouSpeed
-#        if: steps.cache_tweaks.outputs.cache_youspeed_hit != 'true'
-#        run: |
-#         git clone --quiet --depth=1 https://github.com/PoomSmart/YouSpeed.git
-#          cd YouSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-#          mv packages/*.deb ${{ github.workspace }}/youspeed.deb
+      - name: Clone and Build YouSpeed
+        if: steps.cache_tweaks.outputs.cache_youspeed_hit != 'true'
+        run: |
+         git clone --quiet --depth=1 https://github.com/PoomSmart/YouSpeed.git
+          cd YouSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/youspeed.deb
 
-#      - name: Clone and Build YouMute
-#        if: steps.cache_tweaks.outputs.cache_youmute_hit != 'true'
-#        run: |
-#          git clone --quiet --depth=1 https://github.com/PoomSmart/YouMute.git
-#          cd YouMute && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-#          mv packages/*.deb ${{ github.workspace }}/ym.deb
+      - name: Clone and Build YouMute
+        if: steps.cache_tweaks.outputs.cache_youmute_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/PoomSmart/YouMute.git
+          cd YouMute && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/ym.deb
 
-#      - name: Clone and Build YouLoop
-#        if: steps.cache_tweaks.outputs.cache_youloop_hit != 'true'
-#        run: |
-#          git clone --quiet --depth=1 https://github.com/bhackel/YouLoop.git
-#          cd YouLoop && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-#          mv packages/*.deb ${{ github.workspace }}/youloop.deb
-#
+      - name: Clone and Build YouLoop
+        if: steps.cache_tweaks.outputs.cache_youloop_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/bhackel/YouLoop.git
+          cd YouLoop && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/youloop.deb
+
 #      - name: Clone and Build Alderis
 #        if: steps.cache_tweaks.outputs.cache_alderis_hit != 'true'
 #        run: |
-##          git clone --quiet --depth=1 https://github.com/hbang/Alderis.git
- ##         cd Alderis && make clean package DEBUG=0 FINALPACKAGE=1 ARCHS=arm64
- #         mv packages/*.deb ${{ github.workspace }}/alderis.deb
+#          git clone --quiet --depth=1 https://github.com/hbang/Alderis.git
+#         cd Alderis && make clean package DEBUG=0 FINALPACKAGE=1 ARCHS=arm64
+#         mv packages/*.deb ${{ github.workspace }}/alderis.deb
 
 #      - name: Clone and Build YouSlider
 #        if: steps.cache_tweaks.outputs.cache_youslider_hit != 'true'
@@ -236,26 +236,26 @@ jobs:
           cd YouChooseQuality && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/youchoose.deb
 
-#      - name: Clone and Build YTSilentVote
-#        if: steps.cache_tweaks.outputs.cache_ytsilentvote_hit != 'true'
-#        run: |
-#          git clone --quiet --depth=1 https://github.com/PoomSmart/YTSilentVote.git
-#          cd YTSilentVote && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-#          mv packages/*.deb ${{ github.workspace }}/ytnovote.deb
+      - name: Clone and Build YTSilentVote
+        if: steps.cache_tweaks.outputs.cache_ytsilentvote_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/PoomSmart/YTSilentVote.git
+          cd YTSilentVote && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/ytnovote.deb
 
- #     - name: Clone and Build YouShare
- #       if: steps.cache_tweaks.outputs.cache_youshare_hit != 'true'
- #       run: |
- #         git clone --quiet --depth=1 https://github.com/Tonwalter888/YouShare.git
- #         cd YouShare && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
- #         mv packages/*.deb ${{ github.workspace }}/youshare.deb
+      - name: Clone and Build YouShare
+        if: steps.cache_tweaks.outputs.cache_youshare_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/Tonwalter888/YouShare.git
+          cd YouShare && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/youshare.deb
 
-#      - name: Clone and Build Gonerino
-#        if: steps.cache_tweaks.outputs.cache_gonerino_hit != 'true'
-#        run: |
-#          git clone --quiet --depth=1 https://github.com/castdrian/Gonerino.git
-#          cd Gonerino && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-#          mv packages/*.deb ${{ github.workspace }}/gonerino.deb
+      - name: Clone and Build Gonerino
+        if: steps.cache_tweaks.outputs.cache_gonerino_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/castdrian/Gonerino.git
+          cd Gonerino && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/gonerino.deb
 
       - name: Clone and Build YTweaks
         if: steps.cache_tweaks.outputs.cache_ytweaks_hit != 'true'
@@ -291,12 +291,13 @@ jobs:
           git clone --quiet --depth=1 https://github.com/Galactic-Dev/iSponsorBlock.git
           cd iSponsorBlock && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:18.6
           mv packages/*.deb ${{ github.workspace }}/isponsorblock.deb
-
-#        if: steps.cache_tweaks.outputs.cache_ytvid_hit != 'true'
-#       run: |
-#          git clone --quiet --depth=1 https://github.com/PoomSmart/YTVideoErrorAlert.git
-#          cd YTVideoErrorAlert && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-#          mv packages/*.deb ${{ github.workspace }}/ytvideoerror.deb
+          
+      - name: Clone and Build YTVideoErrorAlert
+        if: steps.cache_tweaks.outputs.cache_ytvid_hit != 'true'
+       run: |
+          git clone --quiet --depth=1 https://github.com/PoomSmart/YTVideoErrorAlert.git
+          cd YTVideoErrorAlert && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/ytvideoerror.deb
           
       - name: Clone and Build YTHoldForSpeed
         if: inputs.ythold == true && steps.cache_tweaks.outputs.cache_ythold_hit != 'true'
@@ -312,14 +313,14 @@ jobs:
           cd VolumeBoostYT && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
           mv packages/*.deb ${{ github.workspace }}/volumeboost.deb
           
-#      - name: Clone and Build YTNativeShare
-#        if: inputs.nativeshare == true && steps.cache_tweaks.outputs.cache_nativeshare_hit != 'true'
-#        run: |
-#          git clone --quiet --depth=1 https://github.com/jkhsjdhjs/youtube-native-share.git
-#          cd youtube-native-share
-#          git clone --quiet --depth=1 https://github.com/protocolbuffers/protobuf.git
-#          make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
-#          mv packages/*.deb ${{ github.workspace }}/nativeshare.deb
+      - name: Clone and Build YTNativeShare
+        if: inputs.nativeshare == true && steps.cache_tweaks.outputs.cache_nativeshare_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/jkhsjdhjs/youtube-native-share.git
+          cd youtube-native-share
+          git clone --quiet --depth=1 https://github.com/protocolbuffers/protobuf.git
+          make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
+          mv packages/*.deb ${{ github.workspace }}/nativeshare.deb
 
       - name: Upload Built Debs as Artifacts
         uses: actions/upload-artifact@v4
