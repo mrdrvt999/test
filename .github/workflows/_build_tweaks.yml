@@ -32,7 +32,6 @@ jobs:
   build-tweaks:
     name: Build Tweaks
     runs-on: macos-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
