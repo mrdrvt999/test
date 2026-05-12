@@ -126,7 +126,7 @@ jobs:
           youslider_commit: ${{ steps.commit_hashes.outputs.youslider }}
           youchoose_commit: ${{ steps.commit_hashes.outputs.youchoose }}
           ytsilentvote_commit: ${{ steps.commit_hashes.outputs.ytsilentvote }}
-          youshare_commit: ${{ steps.commit_hashes.outputs.youshare }}
+#          youshare_commit: ${{ steps.commit_hashes.outputs.youshare }}
           gonerino_commit: ${{ steps.commit_hashes.outputs.gonerino }}
           ytweaks_commit: ${{ steps.commit_hashes.outputs.ytweaks }}
           yougetcaption_commit: ${{ steps.commit_hashes.outputs.yougetcaption }}
@@ -243,12 +243,12 @@ jobs:
           cd YTSilentVote && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/ytnovote.deb
 
-      - name: Clone and Build YouShare
-        if: steps.cache_tweaks.outputs.cache_youshare_hit != 'true'
-        run: |
-          git clone --quiet --depth=1 https://github.com/Tonwalter888/YouShare.git
-          cd YouShare && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-          mv packages/*.deb ${{ github.workspace }}/youshare.deb
+#      - name: Clone and Build YouShare
+#        if: steps.cache_tweaks.outputs.cache_youshare_hit != 'true'
+#        run: |
+#          git clone --quiet --depth=1 https://github.com/Tonwalter888/YouShare.git
+#          cd YouShare && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+#          mv packages/*.deb ${{ github.workspace }}/youshare.deb
 
       - name: Clone and Build Gonerino
         if: steps.cache_tweaks.outputs.cache_gonerino_hit != 'true'
