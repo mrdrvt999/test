@@ -233,8 +233,8 @@ jobs:
       - name: Clone and Build YTUHD
         if: inputs.ytuhd == true && steps.cache_tweaks.outputs.cache_ytuhd_hit != 'true'
         run: |
-          git clone --quiet --depth=1 https://github.com/theos/sdks.git
-          cp -r sdks/iPhoneOS16.5.sdk $THEOS/sdks/
+          git clone --quiet --depth=1 https://github.com/Tonwalter888/iOS-SDKs.git
+          cp -r iOS-SDKs/iPhoneOS16.5.sdk $THEOS/sdks/
           git clone --quiet --depth=1 https://github.com/Tonwalter888/YTUHD.git
           cd YTUHD && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless TARGET=iphone:clang:16.5:15.0
           mv packages/*.deb ${{ github.workspace }}/ytuhd.deb
