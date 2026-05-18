@@ -131,7 +131,7 @@ jobs:
           nativeshare: ${{ inputs.nativeshare }}
 
       - name: Install Dependencies
-        run: brew install make ldid swiftlint dpkg
+        run: brew install make ldid swiftlint dpkg libvpx dav1d
 
       - name: Set PATH Environment Variables
         run: |
