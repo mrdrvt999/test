@@ -20,6 +20,12 @@ on:
         default: "com.google.ios.youtube"
         required: true
         type: string
+        
+      opensafari:
+        description: "Integrate Open in YouTube (Safari Extension)"
+        default: true
+        required: false
+        type: boolean
 
       demc:
         description: "Integrate DontEatMyContent"
@@ -65,6 +71,7 @@ jobs:
       volumeboost: ${{ inputs.volumeboost }}
       nativeshare: ${{ inputs.nativeshare }}
       youpro: false
+      opensafari: ${{ inputs.opensafari }}
 
   package:
     name: Build IPA
@@ -83,7 +90,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@v1
         with:
-          exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold,volumeboost,nativeshare
+          exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold,volumeboost,nativeshare,opensafari
 
       - name: Download and Validate IPA
         run: |
@@ -106,7 +113,10 @@ jobs:
 
       - name: Inject Tweaks Into IPA
         run: |
-          tweaks="OpenYouTubeSafariExtension.appex"
+          tweaks=""
+          if [ "${{ inputs.opensafari }}" = "true" ] && [ -e "OpenYouTubeSafariExtension.appex" ]; then
+            tweaks="OpenYouTubeSafariExtension.appex"
+          fi
           for f in *.deb; do
             [ -f "$f" ] && tweaks="$tweaks $f"
           done
