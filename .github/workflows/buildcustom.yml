@@ -94,7 +94,7 @@ jobs:
           path: ${{ github.workspace }}
 
       - name: Hide Sensitive Inputs
-        uses: levibostian/action-hide-sensitive-inputs@v1.2.0
+        uses: levibostian/action-hide-sensitive-inputs@1.2.0
         with:
           exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold,volumeboost,nativeshare,opensafari
 

@@ -102,7 +102,7 @@ jobs:
         uses: actions/checkout@v6.0.2
 
       - name: Hide Sensitive Inputs
-        uses: levibostian/action-hide-sensitive-inputs@v1.2.0
+        uses: levibostian/action-hide-sensitive-inputs@1.2.0
         with:
           exclude_inputs: bundle_id,display_name,youpip,ytuhd,ryd,ytabconfig,youquality,demc,youchoose,ythold,volumeboost,nativeshare,opensafari
 
