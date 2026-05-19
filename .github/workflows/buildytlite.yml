@@ -334,12 +334,19 @@ jobs:
           cyan -i youtube.ipa -o YouTubePlus_${{ env.YT_VERSION }}_${{ env.YTL_VERSION }}.ipa -uwesf $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
           
       - name: Create a Draft Release
-        uses: softprops/action-gh-release@v3
-        with:
-          tag_name: ytl-ipa${{ github.run_number }}
-          name: YouTubePlus_${{ env.YT_VERSION }}_${{ env.YTL_VERSION }} (${{ github.run_number }})
-          files: YouTubePlus_${{ env.YT_VERSION }}_${{ env.YTL_VERSION }}.ipa
-          draft: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          i=1
+          while gh release view "ytl-ipa${i}" --repo "$GITHUB_REPOSITORY" &>/dev/null; do
+            i=$(( i + 1 ))
+          done
+
+          gh release create "ytl-ipa${i}" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "YouTubePlus_${{ env.YT_VERSION }}_${{ env.YTL_VERSION }}" \
+            --draft \
+            YouTubePlus_${{ env.YT_VERSION }}_${{ env.YTL_VERSION }}.ipa
 
       - name: Job Summary - Build Complete
         run: echo -e '### 🛠️ Build YouTubePlus (YTLite) IPA Complete!' >> $GITHUB_STEP_SUMMARY
