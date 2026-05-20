@@ -2,6 +2,14 @@ name: Build YTKillerPlus IPA
 on:
   workflow_dispatch:
     inputs:
+      jailbreak_type:
+        description: 'rootless(sideload)/rootful(jailbreak)'
+        required: true
+        default: 'rootless'
+        type: choice
+        options:
+          - 'rootless'
+          - 'rootful'
       ipa_url:
         description: "URL to the decrypted IPA file"
         default: ""
@@ -223,11 +231,26 @@ jobs:
 
       - name: Clone and Build YTKillerPlus
         run: |
-          git clone --quiet --depth=1 https://github.com/mrdrvt99/YTKP.git
-          cd YTKP
+          git clone --quiet --depth=1 https://github.com/mrdrvt99/YTKP1.git
+          cd YTKP1
           echo "YTKP_VERSION=$(grep '^Version:' DEBIAN/control | awk '{print $2}')" >> $GITHUB_ENV
           chmod -R 755 .
-          dpkg-deb --root-owner-group -Zgzip --build . ../ytkplus.deb
+          TYPE="${{ github.event.inputs.jailbreak_type }}"
+          echo "Selected build target: $TYPE"
+          if [ "$TYPE" = "rootful" ]; then
+            dpkg-deb --root-owner-group -Zgzip --build . ../ytkp_rootful.deb
+          fi
+          if [ "$TYPE" = "rootless" ]; then
+            mkdir -p ../rootless_stage/DEBIAN
+            mkdir -p ../rootless_stage/var/jb/usr/lib/TweakInject
+            mkdir -p ../rootless_stage/var/jb/Library/Application\ Support
+            cp DEBIAN/control ../rootless_stage/DEBIAN/
+            cp Library/MobileSubstrate/DynamicLibraries/*.dylib ../rootless_stage/var/jb/usr/lib/TweakInject/
+            cp Library/MobileSubstrate/DynamicLibraries/*.plist ../rootless_stage/var/jb/usr/lib/TweakInject/
+            cp -r Library/"Application Support"/*.bundle ../rootless_stage/var/jb/Library/Application\ Support/
+            chmod -R 755 ../rootless_stage
+            dpkg-deb --root-owner-group -Zgzip --build ../rootless_stage ../ytkp_rootless.deb
+          fi
 
       - name: Clone and Build YouPiP
         if: inputs.youpip == true && steps.cache_tweaks.outputs.cache_youpip_hit != 'true'
