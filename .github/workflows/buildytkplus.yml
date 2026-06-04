@@ -2,14 +2,6 @@ name: Build YTKillerPlus IPA
 on:
   workflow_dispatch:
     inputs:
-      jailbreak_type:
-        description: 'rootless(sideload)/rootful(jailbreak)'
-        required: true
-        default: 'rootless'
-        type: choice
-        options:
-          - 'rootless'
-          - 'rootful'
       ipa_url:
         description: "URL to the decrypted IPA file"
         default: ""
@@ -76,6 +68,18 @@ on:
         required: false
         type: boolean
         
+      gonerino:
+        description: "Integrate Gonerino"
+        default: false
+        required: false
+        type: boolean
+
+      yougetcaption:
+        description: "Integrate YouGetCaption"
+        default: false
+        required: false
+        type: boolean
+        
       ythold:
         description: "Integrate YTHoldForSpeed"
         default: false
@@ -112,7 +116,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@1.2.0
         with:
-          exclude_inputs: jailbreak_type,bundle_id,display_name,youpip,ytuhd,ryd,ytabconfig,youquality,demc,youchoose,ythold,volumeboost,nativeshare,opensafari
+          exclude_inputs: bundle_id,display_name,youpip,ytuhd,ryd,ytabconfig,youquality,gonerino,yougetcaption,demc,youchoose,ythold,volumeboost,nativeshare,opensafari
 
       - name: Download and Validate IPA
         run: |
@@ -203,6 +207,9 @@ jobs:
           ryd: ${{ inputs.ryd }}
           ytabconfig: ${{ inputs.ytabconfig }}
           youquality: ${{ inputs.youquality }}
+          youchoose: ${{ inputs.youchoose }}
+          gonerino: ${{ inputs.gonerino }}
+          yougetcaption: ${{ inputs.yougetcaption }}
           demc: ${{ inputs.demc }}
           ythold: ${{ inputs.ythold }}
           volumeboost: ${{ inputs.volumeboost }}
@@ -214,11 +221,11 @@ jobs:
           ygs_commit: ${{ steps.commit_hashes.outputs.ygs }}
           ytvo_commit: ${{ steps.commit_hashes.outputs.ytvo }}
           youchoose_commit: ${{ steps.commit_hashes.outputs.youchoose }}
-          youshare_commit: ${{ steps.commit_hashes.outputs.youshare }}
+          gonerino_commit: ${{ steps.commit_hashes.outputs.gonerino }}
+          yougetcaption_commit: ${{ steps.commit_hashes.outputs.yougetcaption }}
           ytabconfig_commit: ${{ steps.commit_hashes.outputs.ytabconfig }}
           youquality_commit: ${{ steps.commit_hashes.outputs.youquality }}
           demc_commit: ${{ steps.commit_hashes.outputs.demc }}
-          ytvid_commit: ${{ steps.commit_hashes.outputs.ytvid }}
           ythold_commit: ${{ steps.commit_hashes.outputs.ythold }}
           volumeboost_commit: ${{ steps.commit_hashes.outputs.volumeboost }}
           nativeshare_commit: ${{ steps.commit_hashes.outputs.nativeshare }}
@@ -231,26 +238,11 @@ jobs:
 
       - name: Clone and Build YTKillerPlus
         run: |
-          git clone --quiet --depth=1 https://github.com/mrdrvt99/YTKP1.git
-          cd YTKP1
+          git clone --quiet --depth=1 https://github.com/mrdrvt99/YTKP.git
+          cd YTKP
           echo "YTKP_VERSION=$(grep '^Version:' DEBIAN/control | awk '{print $2}')" >> $GITHUB_ENV
           chmod -R 755 .
-          TYPE="${{ github.event.inputs.jailbreak_type }}"
-          echo "Selected build target: $TYPE"
-          if [ "$TYPE" = "rootful" ]; then
-            dpkg-deb --root-owner-group -Zgzip --build . ../ytkp_rootful.deb
-          fi
-          if [ "$TYPE" = "rootless" ]; then
-            mkdir -p ../rootless_stage/DEBIAN
-            mkdir -p ../rootless_stage/var/jb/usr/lib/TweakInject
-            mkdir -p ../rootless_stage/var/jb/Library/Application\ Support
-            cp DEBIAN/control ../rootless_stage/DEBIAN/
-            cp Library/MobileSubstrate/DynamicLibraries/*.dylib ../rootless_stage/var/jb/usr/lib/TweakInject/
-            cp Library/MobileSubstrate/DynamicLibraries/*.plist ../rootless_stage/var/jb/usr/lib/TweakInject/
-            cp -r Library/"Application Support"/*.bundle ../rootless_stage/var/jb/Library/Application\ Support/
-            chmod -R 755 ../rootless_stage
-            dpkg-deb --root-owner-group -Zgzip --build ../rootless_stage ../ytkp_rootless.deb
-          fi
+          dpkg-deb --root-owner-group -Zgzip --build . ../ytkplus.deb
 
       - name: Clone and Build YouPiP
         if: inputs.youpip == true && steps.cache_tweaks.outputs.cache_youpip_hit != 'true'
@@ -301,32 +293,32 @@ jobs:
           cd YouChooseQuality && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/youchoose.deb
 
-      - name: Clone and Build YouShare
-        if: steps.cache_tweaks.outputs.cache_youshare_hit != 'true'
+      - name: Clone and Build Gonerino
+        if: inputs.gonerino == true && steps.cache_tweaks.outputs.cache_gonerino_hit != 'true'
         run: |
-          git clone --quiet --depth=1 https://github.com/Tonwalter888/YouShare.git
-          cd YouShare && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-          mv packages/*.deb ${{ github.workspace }}/youshare.deb
+          git clone --quiet --depth=1 https://github.com/castdrian/Gonerino.git
+          cd Gonerino && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/gonerino.deb
 
+      - name: Clone and Build YouGetCaption
+        if: inputs.yougetcaption == true && steps.cache_tweaks.outputs.cache_yougetcaption_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/PoomSmart/YouGetCaption.git
+          cd YouGetCaption && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/ygc.deb
+          
       - name: Clone and Build DontEatMyContent
         if: inputs.demc == true && steps.cache_tweaks.outputs.cache_demc_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/therealFoxster/DontEatMyContent.git
           cd DontEatMyContent && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/demc.deb
-
-      - name: Clone and Build YTVideoErrorAlert
-        if: steps.cache_tweaks.outputs.cache_ytvid_hit != 'true'
-        run: |
-          git clone --quiet --depth=1 https://github.com/PoomSmart/YTVideoErrorAlert.git
-          cd YTVideoErrorAlert && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-          mv packages/*.deb ${{ github.workspace }}/ytvideoerror.deb
           
       - name: Clone and Build YTHoldForSpeed
         if: inputs.ythold == true && steps.cache_tweaks.outputs.cache_ythold_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/joshuaseltzer/YTHoldForSpeed.git
-          cd YTHoldForSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:latest:15.0 
+          cd YTHoldForSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:latest:15.0
           mv packages/*.deb ${{ github.workspace }}/ythold.deb
 
       - name: Clone and Build VolumeBoostYT
@@ -364,7 +356,6 @@ jobs:
           while gh release view "ytkp-ipa${i}" --repo "$GITHUB_REPOSITORY" &>/dev/null; do
             i=$(( i + 1 ))
           done
-
           gh release create "ytkp-ipa${i}" \
             --repo "$GITHUB_REPOSITORY" \
             --title "YTKillerPlus_${{ env.YT_VERSION }}_${{ env.YTKP_VERSION }}" \

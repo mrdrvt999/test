@@ -65,9 +65,6 @@ outputs:
   ytsilentvote:
     description: YTSilentVote commit hash
     value: ${{ steps.hashes.outputs.ytsilentvote }}
-  youshare:
-    description: YouShare commit hash
-    value: ${{ steps.hashes.outputs.youshare }}
   gonerino:
     description: Gonerino commit hash
     value: ${{ steps.hashes.outputs.gonerino }}
@@ -86,9 +83,6 @@ outputs:
   demc:
     description: DontEatMyContent commit hash
     value: ${{ steps.hashes.outputs.demc }}
-  ytvid:
-    description: YTVideoErrorAlert commit hash
-    value: ${{ steps.hashes.outputs.ytvid }}
   ythold:
     description: YTHoldForSpeed commit hash
     value: ${{ steps.hashes.outputs.ythold }}
@@ -96,7 +90,7 @@ outputs:
     description: VolumeBoostYT commit hash
     value: ${{ steps.hashes.outputs.volumeboost }}
   nativeshare:
-    description: youtube-native-share commit hash
+    description: YTNativeShare commit hash
     value: ${{ steps.hashes.outputs.nativeshare }}
  
 runs:
@@ -112,7 +106,7 @@ runs:
  
         echo "theos=$(get_hash theos/theos)"                                         >> $GITHUB_OUTPUT
         echo "youpip=$(get_hash PoomSmart/YouPiP)"                                   >> $GITHUB_OUTPUT
-        echo "ytuhd=$(get_hash Tonwalter888/YTUHD)"                                  >> $GITHUB_OUTPUT
+        echo "ytuhd=$(get_hash PoomSmart/YTUHD)"                                     >> $GITHUB_OUTPUT
         echo "ryd=$(get_hash PoomSmart/Return-YouTube-Dislikes)"                     >> $GITHUB_OUTPUT
         echo "ygs=$(get_hash PoomSmart/YouGroupSettings)"                            >> $GITHUB_OUTPUT
         echo "ytvo=$(get_hash PoomSmart/YTVideoOverlay)"                             >> $GITHUB_OUTPUT
@@ -125,12 +119,10 @@ runs:
         echo "youslider=$(get_hash PoomSmart/YouSlider)"                             >> $GITHUB_OUTPUT
         echo "youchoose=$(get_hash Tonwalter888/YouChooseQuality)"                   >> $GITHUB_OUTPUT
         echo "ytsilentvote=$(get_hash PoomSmart/YTSilentVote)"                       >> $GITHUB_OUTPUT
-        echo "youshare=$(get_hash Tonwalter888/YouShare)"                            >> $GITHUB_OUTPUT
         echo "gonerino=$(get_hash castdrian/Gonerino)"                               >> $GITHUB_OUTPUT
         echo "ytweaks=$(get_hash fosterbarnes/YTweaks)"                              >> $GITHUB_OUTPUT
         echo "yougetcaption=$(get_hash PoomSmart/YouGetCaption)"                     >> $GITHUB_OUTPUT
         echo "iamyoutube=$(get_hash PoomSmart/IAmYouTube)"                           >> $GITHUB_OUTPUT
-        echo "ytvid=$(get_hash PoomSmart/YTVideoErrorAlert)"                         >> $GITHUB_OUTPUT
  
         if [ "${{ inputs.isponsorblock }}" = "true" ]; then
           echo "isponsorblock=$(get_hash Galactic-Dev/iSponsorBlock)"                >> $GITHUB_OUTPUT
