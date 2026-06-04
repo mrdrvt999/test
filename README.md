@@ -20,7 +20,7 @@ YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxin
 - **[LRD](https://t.me/LRD_Update)/[DLTube](https://x.com/dltweaks_)** - more optional YouTube tweaks. Download Videos, No ads and Background Playback.
 - **[YTMusicUltimate](https://github.com/mrdrvt99/YTMusicUltimate)** - Background playback, ad removal, and other small improvements. Downloads are currently broken.
 - [YouPip](https://github.com/PoomSmart/YouPiP) -  Enables native PiP in iOS YouTube app.
-- [YTUHD](https://github.com/Tonwalter888/YTUHD) - Unlocks 1440p and 2160p resolutions in iOS YouTube app.
+- [YTUHD](https://github.com/PoomSmart/YTUHD) - Unlocks 1440p and 2160p resolutions in iOS YouTube app.
 - [ReturnYoutubeDislikes](https://github.com/PoomSmart/Return-YouTube-Dislikes) -  Brings Back Dislikes On YouTube iOS. 
 - [YouMute](https://github.com/PoomSmart/YouMute) - Mutes/unmutes videos on iOS YouTube app faster.
 - [YouSpeed](https://github.com/PoomSmart/YouSpeed) - Views/changes video speed in iOS YouTube app faster.
