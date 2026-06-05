@@ -38,7 +38,7 @@ on:
         default: true
         required: false
         type: boolean
-        
+
       demc:
         description: "Integrate DontEatMyContent"
         default: true
@@ -50,7 +50,7 @@ on:
         default: true
         required: false
         type: boolean
-        
+
       ythold:
         description: "Integrate YTHoldForSpeed"
         default: false
@@ -62,9 +62,15 @@ on:
         default: false
         required: false
         type: boolean
-        
+
       nativeshare:
         description: "Integrate YTNativeShare"
+        default: false
+        required: false
+        type: boolean
+
+      ytlowcontrastmode:
+        description: "Integrate YTLowContrastMode"
         default: false
         required: false
         type: boolean
@@ -84,6 +90,7 @@ jobs:
       nativeshare: ${{ inputs.nativeshare }}
       youpro: false
       opensafari: ${{ inputs.opensafari }}
+      ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
 
   package:
     name: Build IPA with Custom tweak
@@ -102,7 +109,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@1.2.0
         with:
-          exclude_inputs: bundle_id,display_name,custom_name,demc,isponsorblock,ythold,volumeboost,nativeshare,opensafari
+          exclude_inputs: bundle_id,display_name,custom_name,demc,isponsorblock,ythold,volumeboost,nativeshare,opensafari,ytlowcontrastmode
 
       - name: Download and Validate IPA
         run: |
@@ -173,7 +180,7 @@ jobs:
             [ -f "$f" ] && tweaks="$tweaks $f"
           done
           cyan -i youtube.ipa -o "${{ env.SANITIZED_NAME }}_${{ env.YT_VERSION }}_${{ env.CUSTOM_DEB_VERSION }}.ipa" -uwesf $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
-          
+
       - name: Create a Draft Release
         env:
           GH_TOKEN: ${{ github.token }}

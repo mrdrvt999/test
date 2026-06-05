@@ -31,6 +31,10 @@ on:
         type: boolean
         required: false
         default: true
+      ytlowcontrastmode:
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   build-tweaks:
@@ -42,7 +46,7 @@ jobs:
         uses: actions/checkout@v6.0.2
 
       - name: Install Dependencies
-        run: brew install make ldid swiftlint dpkg
+        run: brew install make ldid swiftlint dpkg meson ninja
 
       - name: Set PATH Environment Variables
         run: |
@@ -58,6 +62,7 @@ jobs:
           ythold: ${{ inputs.ythold }}
           volumeboost: ${{ inputs.volumeboost }}
           nativeshare: ${{ inputs.nativeshare }}
+          ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
 
       - name: Cache Theos
         id: theos
@@ -115,6 +120,7 @@ jobs:
           ythold: ${{ inputs.ythold }}
           volumeboost: ${{ inputs.volumeboost }}
           nativeshare: ${{ inputs.nativeshare }}
+          ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
           theos_commit: ${{ steps.commit_hashes.outputs.theos }}
           youpip_commit: ${{ steps.commit_hashes.outputs.youpip }}
           ytuhd_commit: ${{ steps.commit_hashes.outputs.ytuhd }}
@@ -139,6 +145,7 @@ jobs:
           ythold_commit: ${{ steps.commit_hashes.outputs.ythold }}
           volumeboost_commit: ${{ steps.commit_hashes.outputs.volumeboost }}
           nativeshare_commit: ${{ steps.commit_hashes.outputs.nativeshare }}
+          ytlowcontrastmode_commit: ${{ steps.commit_hashes.outputs.ytlowcontrastmode }}
 
       - name: Build YTVideoOverlay
         if: steps.cache_tweaks.outputs.cache_ytvo_hit != 'true'
@@ -153,7 +160,7 @@ jobs:
           cd YouPro
           chmod -R 755 .
           dpkg-deb --root-owner-group -Zgzip --build . ../YouPro.deb
-          
+
       - name: Clone and Build YouPiP
         if: steps.cache_tweaks.outputs.cache_youpip_hit != 'true'
         run: |
@@ -164,8 +171,10 @@ jobs:
       - name: Clone and Build YTUHD
         if: steps.cache_tweaks.outputs.cache_ytuhd_hit != 'true'
         run: |
-          git clone --quiet --depth=1 https://github.com/PoomSmart/YTUHD.git
-          cd YTUHD && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless SIDELOAD=1
+          git clone --quiet --depth=1 --recurse-submodules https://github.com/PoomSmart/YTUHD.git
+          cd YTUHD
+          make libvpx dav1d
+          make clean package DEBUG=0 FINALPACKAGE=1 SIDELOAD=1 THEOS_JAILED=1
           mv packages/*.deb ${{ github.workspace }}/ytuhd.deb
 
       - name: Clone and Build Return-YouTube-Dislikes
@@ -286,7 +295,7 @@ jobs:
           git clone --quiet --depth=1 https://github.com/Galactic-Dev/iSponsorBlock.git
           cd iSponsorBlock && make clean package DEBUG=0 FINALPACKAGE=1 ROOTLESS=1 ARCHS=arm64 TARGET=iphone:clang:18.6:13.0
           mv packages/*.deb ${{ github.workspace }}/isponsorblock.deb
-          
+
       - name: Clone and Build YTHoldForSpeed
         if: inputs.ythold == true && steps.cache_tweaks.outputs.cache_ythold_hit != 'true'
         run: |
@@ -300,7 +309,7 @@ jobs:
           git clone --quiet --depth=1 https://github.com/VasirakCalgux/VolumeBoostYT.git
           cd VolumeBoostYT && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
           mv packages/*.deb ${{ github.workspace }}/volumeboost.deb
-          
+
       - name: Clone and Build YTNativeShare
         if: inputs.nativeshare == true && steps.cache_tweaks.outputs.cache_nativeshare_hit != 'true'
         run: |
@@ -309,6 +318,13 @@ jobs:
           git clone --quiet --depth=1 https://github.com/protocolbuffers/protobuf.git
           make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
           mv packages/*.deb ${{ github.workspace }}/nativeshare.deb
+
+      - name: Clone and Build YTLowContrastMode
+        if: inputs.ytlowcontrastmode == true && steps.cache_tweaks.outputs.cache_ytlowcontrastmode_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/arichornlover/YTLowContrastMode.git
+          cd YTLowContrastMode && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:18.6:15.0
+          mv packages/*.deb ${{ github.workspace }}/ytlowcontrastmode.deb
 
       - name: Upload Built Debs as Artifacts
         uses: actions/upload-artifact@v7.0.1

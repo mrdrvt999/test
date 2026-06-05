@@ -1,17 +1,6 @@
 # YouProEXTRA
 YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxing.
 
-> [!IMPORTANT]
-> ## 🆕 New Feature
-> YouProEXTRA now has an official AltStore/Esign/Feather/SideStore/LiveContainer source. Install any mod directly on your device and get automatic updates. no building, no decrypted IPAs required.
->
-> AIO Package and separate source files. links are avaliable below
-> 
-> Read Instructions here 👉 [mrdrvt99/Altstore-Repository](https://github.com/mrdrvt99/Altstore-Repository)
-> 
->
-> ⚠️ If you already have one of these tweaks installed from a direct IPA or previous sideload, **do not tap Update**. Delete the installed tweak first, then install fresh from the source.
-
 ## Main features
 - **[YouPro](https://t.me/alibusut)** - Basic Youtube Premium features; Download Videos, No ads, Background Playback.
 - **[YoutubePlus/YTLite](https://github.com/dayanch96/YTLite)** - A flexible enhancer for YouTube on iOS, featuring over hundred customizable options.
@@ -36,9 +25,21 @@ YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxin
 - [iSponsorBlock](https://github.com/Galactic-Dev/iSponsorBlock.git) - Skip Sponsorships in youtube videos. 
 - [DontEatMyContent](https://github.com/therealFoxster/DontEatMyContent) - Prevent the notch/Dynamic Island from munching on 2:1 video content in YouTube 
 - [YTNativeShare](https://github.com/jkhsjdhjs/youtube-native-share) -  Bypass YouTubes own share sheet and use the system activity view instead. Removes source identifiers (si). 
-### Experimental features
 - [YTHoldForSpeed](https://github.com/joshuaseltzer/YTHoldForSpeed) - Tap and hold on the YouTube video player to toggle a selected playback speed.
 - [VolumeBoostYT](https://github.com/VasirakCalgux/VolumeBoostYT) - Gesture-based volume control for the YouTube app, completely separate from the system volume. (NOTE: turn off/on tweak again if the audio is not playing)
+### Experimental features
+- [YTLowContrastMode](https://github.com/arichornlover/YTLowContrastMode) - a Tweak to make an App’s Interface Low Contrast as possible and Easy on the eyes. It aims to recreate the softer, less intense look of the pre‑2020 YouTube design.
+
+> [!IMPORTANT]
+> ## 🆕 New Feature
+> YouProEXTRA now has an official AltStore/Esign/Feather/SideStore/LiveContainer source. Install any mod directly on your device and get automatic updates. no building, no decrypted IPAs required.
+>
+> AIO Package and separate source files. links are avaliable below
+> 
+> Read Instructions here 👉 [mrdrvt99/Altstore-Repository](https://github.com/mrdrvt99/Altstore-Repository)
+> 
+>
+> ⚠️ If you already have one of these tweaks installed from a direct IPA or previous sideload, **do not tap Update**. Delete the installed tweak first, then install fresh from the source.
 
 ## How to build a YouProEXTRA IPA using Github Actions
 > [!NOTE]
@@ -71,7 +72,7 @@ YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxin
     <li>Get your Custom .deb file, then upload it to a file provider (e.g., filebin.net, catbox.moe, or Dropbox is recommended). Paste the URL of the deb file in the provided field.</li>
     <strong>NOTE:</strong> Make sure to provide a direct download link to the file, not a link to a webpage. Otherwise, the process will fail.
     <li>You can also change the BundleID and Display Name if desired.</li>
-    <li>Make sure all inputs are correct, then click <strong>Run workflow</strong> to start the process.</li>
+    <li>Make sure all inputs are correct, then click <strong>Run workflow</strong> to start the process. <br><em><small><strong>Warning:</strong> This step is compiling all the tweaks that's available in the repo. it may crash in your custom ipa.</small></em></li>
     <li>Wait for the build to finish. You can download the YouProEXTRA IPA from the releases section of your forked repo. (If you can't find the releases section, go to your forked repo and add /releases to the URL, i.e., github.com/yourusername/YouProEXTRA/releases.)</li>
   </ol>
 </details>
@@ -79,6 +80,6 @@ YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxin
 ## Supported YouTube version
 <ul>
    <li><strong>Latest confirmed:</strong> 21.22.4</li>
-   <li><strong>Date tested:</strong> May 30, 2026</li>
+   <li><strong>Date tested:</strong> June 4, 2026</li>
    <li><strong>YouPro/YTLite/YTKP:</strong> 0.3/5.2.1/5.3.2</li>
 </ul>
