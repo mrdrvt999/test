@@ -36,13 +36,14 @@ jobs:
   build-tweaks:
     name: Build Tweaks
     runs-on: macos-latest
-
+    env:
+      HOMEBREW_NO_ENV_HINTS: 1
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6.0.2
 
       - name: Install Dependencies
-        run: brew install make ldid swiftlint dpkg meson ninja
+        run: brew install --quiet make ldid swiftlint dpkg meson ninja
 
       - name: Set PATH Environment Variables
         run: |

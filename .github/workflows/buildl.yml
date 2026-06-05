@@ -116,7 +116,8 @@ jobs:
     runs-on: macos-latest
     permissions:
       contents: write
-
+    env:
+      HOMEBREW_NO_ENV_HINTS: 1
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6.0.2
@@ -151,7 +152,7 @@ jobs:
           nativeshare: ${{ inputs.nativeshare }}
 
       - name: Install Dependencies
-        run: brew install make ldid swiftlint dpkg meson ninja
+        run: brew install --quiet make ldid swiftlint dpkg meson ninja
 
       - name: Set PATH Environment Variables
         run: |
