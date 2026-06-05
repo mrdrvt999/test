@@ -26,9 +26,9 @@ YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxin
 - [DontEatMyContent](https://github.com/therealFoxster/DontEatMyContent) - Prevent the notch/Dynamic Island from munching on 2:1 video content in YouTube 
 - [YTNativeShare](https://github.com/jkhsjdhjs/youtube-native-share) -  Bypass YouTubes own share sheet and use the system activity view instead. Removes source identifiers (si). 
 - [YTHoldForSpeed](https://github.com/joshuaseltzer/YTHoldForSpeed) - Tap and hold on the YouTube video player to toggle a selected playback speed.
-- [VolumeBoostYT](https://github.com/VasirakCalgux/VolumeBoostYT) - Gesture-based volume control for the YouTube app, completely separate from the system volume. (NOTE: turn off/on tweak again if the audio is not playing)
+- [VolumeBoostYT](https://github.com/VasirakCalgux/VolumeBoostYT) - Gesture-based volume control for the YouTube app, completely separate from the system volume. **(NOTE: turn off/on tweak again if the audio is not playing)**
 ### Experimental features
-- [YTLowContrastMode](https://github.com/arichornlover/YTLowContrastMode) - a Tweak to make an App’s Interface Low Contrast as possible and Easy on the eyes. It aims to recreate the softer, less intense look of the pre‑2020 YouTube design.(NOTE:NO toggle, implement only when you need it.)
+- [YTLowContrastMode](https://github.com/arichornlover/YTLowContrastMode) - a Tweak to make an App’s Interface Low Contrast as possible and Easy on the eyes. It aims to recreate the softer, less intense look of the pre‑2020 YouTube design.**(NOTE: NO toggle, implement only when you need it.)**
 
 > [!IMPORTANT]
 > ## 🆕 New Feature
