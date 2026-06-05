@@ -57,12 +57,6 @@ on:
         required: false
         type: boolean
 
-      ytlowcontrastmode:
-        description: "Integrate YTLowContrastMode"
-        default: false
-        required: false
-        type: boolean
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -78,7 +72,6 @@ jobs:
       nativeshare: ${{ inputs.nativeshare }}
       youpro: false
       opensafari: ${{ inputs.opensafari }}
-      ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
 
   package:
     name: Build IPA
@@ -97,7 +90,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@1.2.0
         with:
-          exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold,volumeboost,nativeshare,opensafari,ytlowcontrastmode
+          exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold,volumeboost,nativeshare,opensafari
 
       - name: Download and Validate IPA
         run: |

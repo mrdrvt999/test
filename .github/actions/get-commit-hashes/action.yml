@@ -14,9 +14,6 @@ inputs:
   volumeboost:
     required: false
     default: 'false'
-  ytlowcontrastmode:
-    required: false
-    default: 'false'
   nativeshare:
     required: false
     default: 'false'
@@ -94,9 +91,6 @@ outputs:
   nativeshare:
     description: YTNativeShare commit hash
     value: ${{ steps.hashes.outputs.nativeshare }}
-  ytlowcontrastmode:
-    description: YTLowContrastMode commit hash
-    value: ${{ steps.hashes.outputs.ytlowcontrastmode }}
 
 runs:
   using: composite
@@ -157,10 +151,4 @@ runs:
           echo "nativeshare=$(get_hash jkhsjdhjs/youtube-native-share)"              >> $GITHUB_OUTPUT
         else
           echo "nativeshare=disabled"                                                >> $GITHUB_OUTPUT
-        fi
-
-        if [ "${{ inputs.ytlowcontrastmode }}" = "true" ]; then
-          echo "ytlowcontrastmode=$(get_hash arichornlover/YTLowContrastMode)"       >> $GITHUB_OUTPUT
-        else
-          echo "ytlowcontrastmode=disabled"                                          >> $GITHUB_OUTPUT
         fi

@@ -43,9 +43,6 @@ inputs:
   nativeshare:
     required: false
     default: 'false'
-  ytlowcontrastmode:
-    required: false
-    default: 'false'
   theos_commit:
     required: true
   youpip_commit:
@@ -110,9 +107,6 @@ inputs:
   nativeshare_commit:
     required: false
     default: 'disabled'
-  ytlowcontrastmode_commit:
-    required: false
-    default: 'disabled'
 
 outputs:
   cache_youpip_hit:        { value: "${{ steps.cache_youpip.outputs.cache-hit }}" }
@@ -138,7 +132,6 @@ outputs:
   cache_ythold_hit:        { value: "${{ steps.cache_ythold.outputs.cache-hit }}" }
   cache_volumeboost_hit:   { value: "${{ steps.cache_volumeboost.outputs.cache-hit }}" }
   cache_nativeshare_hit:   { value: "${{ steps.cache_nativeshare.outputs.cache-hit }}" }
-  cache_ytlowcontrastmode_hit: { value: "${{ steps.cache_ytlowcontrastmode.outputs.cache-hit }}" }
 
 runs:
   using: composite
@@ -302,10 +295,3 @@ runs:
       with:
         path: ${{ github.workspace }}/nativeshare.deb
         key: nativeshare-${{ inputs.nativeshare_commit }}-sdk${{ inputs.sdk_version }}
-
-    - uses: actions/cache@v5.0.5
-      if: inputs.ytlowcontrastmode == 'true'
-      id: cache_ytlowcontrastmode
-      with:
-        path: ${{ github.workspace }}/ytlowcontrastmode.deb
-        key: ytlowcontrastmode-${{ inputs.ytlowcontrastmode_commit }}-sdk${{ inputs.sdk_version }}

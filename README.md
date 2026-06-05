@@ -11,24 +11,22 @@ YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxin
 - [YouPip](https://github.com/PoomSmart/YouPiP) -  Enables native PiP in iOS YouTube app.
 - [YTUHD](https://github.com/PoomSmart/YTUHD) - Unlocks 1440p and 2160p resolutions in iOS YouTube app.
 - [ReturnYoutubeDislikes](https://github.com/PoomSmart/Return-YouTube-Dislikes) -  Brings Back Dislikes On YouTube iOS. 
-- [YouMute](https://github.com/PoomSmart/YouMute) - Mutes/unmutes videos on iOS YouTube app faster.
-- [YouSpeed](https://github.com/PoomSmart/YouSpeed) - Views/changes video speed in iOS YouTube app faster.
+- [YouMute](https://github.com/PoomSmart/YouMute) - Mutes/unmutes videos on iOS YouTube app faster.(custom build)
+- [YouSpeed](https://github.com/PoomSmart/YouSpeed) - Views/changes video speed in iOS YouTube app faster.(custom build)
 - [YTABConfig](https://github.com/PoomSmart/YTABConfig) - Configures A/B settings in iOS YouTube app.
-- [YouLoop](https://github.com/bhackel/YouLoop.git) - Adds a player button to enable/disable looping on the current video.
+- [YouLoop](https://github.com/bhackel/YouLoop.git) - Adds a player button to enable/disable looping on the current video.(custom build)
 - [YouQuality](https://github.com/PoomSmart/YTABConfig) - Views/changes video quality on iOS YouTube app faster.
 - [YouChooseQuality](https://github.com/PoomSmart/YouChooseQuality) - Auto-selects the video quality of choice in iOS YouTube app.
-- [YouSlider](https://github.com/PoomSmart/YouSlider) - Customizes iOS YouTube video slider and scrubber.
-- [YTSilentVote](https://github.com/PoomSmart/YTSilentVote.git) - No messages will pop up as you like/dislike videos.
+- [YouSlider](https://github.com/PoomSmart/YouSlider) - Customizes iOS YouTube video slider and scrubber.(custom build)
+- [YTSilentVote](https://github.com/PoomSmart/YTSilentVote.git) - No messages will pop up as you like/dislike videos.(custom build)
 - [YouGetCaption](https://github.com/PoomSmart/YouGetCaption) - Views and copies caption from YouTube videos.
-- [YTweaks](https://github.com/fosterbarnes/YTweaks) - Various tweaks for the iOS YouTube app. 
+- [YTweaks](https://github.com/fosterbarnes/YTweaks) - Various tweaks for the iOS YouTube app.(custom build)
 - [Gonerino](https://github.com/castdrian/Gonerino) - Filter videos/channels/keywords that you don't want them to show up on your feeds
 - [iSponsorBlock](https://github.com/Galactic-Dev/iSponsorBlock.git) - Skip Sponsorships in youtube videos. 
 - [DontEatMyContent](https://github.com/therealFoxster/DontEatMyContent) - Prevent the notch/Dynamic Island from munching on 2:1 video content in YouTube 
-- [YTNativeShare](https://github.com/jkhsjdhjs/youtube-native-share) -  Bypass YouTubes own share sheet and use the system activity view instead. Removes source identifiers (si). 
 - [YTHoldForSpeed](https://github.com/joshuaseltzer/YTHoldForSpeed) - Tap and hold on the YouTube video player to toggle a selected playback speed.
 - [VolumeBoostYT](https://github.com/VasirakCalgux/VolumeBoostYT) - Gesture-based volume control for the YouTube app, completely separate from the system volume. **(NOTE: turn off/on tweak again if the audio is not playing)**
-### Experimental features
-- [YTLowContrastMode](https://github.com/arichornlover/YTLowContrastMode) - a Tweak to make an App’s Interface Low Contrast as possible and Easy on the eyes. It aims to recreate the softer, less intense look of the pre‑2020 YouTube design.**(NOTE: NO toggle, implement only when you need it.)**
+- [YTNativeShare](https://github.com/jkhsjdhjs/youtube-native-share) -  Bypass YouTubes own share sheet and use the system activity view instead. Removes source identifiers (si). 
 
 > [!IMPORTANT]
 > ## 🆕 New Feature

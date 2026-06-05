@@ -31,10 +31,6 @@ on:
         type: boolean
         required: false
         default: true
-      ytlowcontrastmode:
-        type: boolean
-        required: false
-        default: false
 
 jobs:
   build-tweaks:
@@ -62,7 +58,6 @@ jobs:
           ythold: ${{ inputs.ythold }}
           volumeboost: ${{ inputs.volumeboost }}
           nativeshare: ${{ inputs.nativeshare }}
-          ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
 
       - name: Cache Theos
         id: theos
@@ -120,7 +115,6 @@ jobs:
           ythold: ${{ inputs.ythold }}
           volumeboost: ${{ inputs.volumeboost }}
           nativeshare: ${{ inputs.nativeshare }}
-          ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
           theos_commit: ${{ steps.commit_hashes.outputs.theos }}
           youpip_commit: ${{ steps.commit_hashes.outputs.youpip }}
           ytuhd_commit: ${{ steps.commit_hashes.outputs.ytuhd }}
@@ -145,7 +139,6 @@ jobs:
           ythold_commit: ${{ steps.commit_hashes.outputs.ythold }}
           volumeboost_commit: ${{ steps.commit_hashes.outputs.volumeboost }}
           nativeshare_commit: ${{ steps.commit_hashes.outputs.nativeshare }}
-          ytlowcontrastmode_commit: ${{ steps.commit_hashes.outputs.ytlowcontrastmode }}
 
       - name: Build YTVideoOverlay
         if: steps.cache_tweaks.outputs.cache_ytvo_hit != 'true'
@@ -318,13 +311,6 @@ jobs:
           git clone --quiet --depth=1 https://github.com/protocolbuffers/protobuf.git
           make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
           mv packages/*.deb ${{ github.workspace }}/nativeshare.deb
-
-      - name: Clone and Build YTLowContrastMode
-        if: inputs.ytlowcontrastmode == true && steps.cache_tweaks.outputs.cache_ytlowcontrastmode_hit != 'true'
-        run: |
-          git clone --quiet --depth=1 https://github.com/arichornlover/YTLowContrastMode.git
-          cd YTLowContrastMode && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:18.6:15.0
-          mv packages/*.deb ${{ github.workspace }}/ytlowcontrastmode.deb
 
       - name: Upload Built Debs as Artifacts
         uses: actions/upload-artifact@v7.0.1
