@@ -7,7 +7,7 @@ YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxin
 - **[YTKillerPlus](https://repo.ikghd.me/depictions/?p=me.ikghd.ytkplus)** - Alternative Youtube tweak with more custiomized options.
 - **[YouMod](https://github.com/Tonwalter888/YouMod)** - a free alternative youtube tweak.
 - **[LRD](https://t.me/LRD_Update)/[DLTube](https://x.com/dltweaks_)** - more optional YouTube tweaks. Download Videos, No ads and Background Playback.
-- **[YTMusicUltimate](https://github.com/mrdrvt99/YTMusicUltimate)** - Background playback, ad removal, and other small improvements. Downloads are currently broken.
+- **[YTMusicUltimate](https://github.com/mrdrvt99/YTMusicUltimate)** - Background playback, ad removal, Downloads and other small improvements.
 - [YouPip](https://github.com/PoomSmart/YouPiP) -  Enables native PiP in iOS YouTube app.
 - [YTUHD](https://github.com/PoomSmart/YTUHD) - Unlocks 1440p and 2160p resolutions in iOS YouTube app.
 - [ReturnYoutubeDislikes](https://github.com/PoomSmart/Return-YouTube-Dislikes) -  Brings Back Dislikes On YouTube iOS. 
@@ -28,7 +28,7 @@ YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxin
 - [YTHoldForSpeed](https://github.com/joshuaseltzer/YTHoldForSpeed) - Tap and hold on the YouTube video player to toggle a selected playback speed.
 - [VolumeBoostYT](https://github.com/VasirakCalgux/VolumeBoostYT) - Gesture-based volume control for the YouTube app, completely separate from the system volume. (NOTE: turn off/on tweak again if the audio is not playing)
 ### Experimental features
-- [YTLowContrastMode](https://github.com/arichornlover/YTLowContrastMode) - a Tweak to make an App’s Interface Low Contrast as possible and Easy on the eyes. It aims to recreate the softer, less intense look of the pre‑2020 YouTube design.
+- [YTLowContrastMode](https://github.com/arichornlover/YTLowContrastMode) - a Tweak to make an App’s Interface Low Contrast as possible and Easy on the eyes. It aims to recreate the softer, less intense look of the pre‑2020 YouTube design.(NOTE:NO toggle, implement only when you need it.)
 
 > [!IMPORTANT]
 > ## 🆕 New Feature
@@ -72,7 +72,7 @@ YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxin
     <li>Get your Custom .deb file, then upload it to a file provider (e.g., filebin.net, catbox.moe, or Dropbox is recommended). Paste the URL of the deb file in the provided field.</li>
     <strong>NOTE:</strong> Make sure to provide a direct download link to the file, not a link to a webpage. Otherwise, the process will fail.
     <li>You can also change the BundleID and Display Name if desired.</li>
-    <li>Make sure all inputs are correct, then click <strong>Run workflow</strong> to start the process. <br><em><small><strong>Warning:</strong> This step is compiling all the tweaks that's available in the repo. it may crash in your custom ipa.</small></em></li>
+    <li>Make sure all inputs are correct, then click <strong>Run workflow</strong> to start the process. <br><em><small><strong>Warning:</strong> This step is compiling all the tweaks that's available in the repo. it may crash your custom ipa.</small></em></li>
     <li>Wait for the build to finish. You can download the YouProEXTRA IPA from the releases section of your forked repo. (If you can't find the releases section, go to your forked repo and add /releases to the URL, i.e., github.com/yourusername/YouProEXTRA/releases.)</li>
   </ol>
 </details>
