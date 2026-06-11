@@ -55,6 +55,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   build-tweaks:
     uses: ./.github/workflows/_build_tweaks.yml
