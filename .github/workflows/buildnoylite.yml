@@ -63,6 +63,7 @@ concurrency:
 
 jobs:
   build-tweaks:
+    permissions: {}
     uses: ./.github/workflows/_build_tweaks.yml
     with:
       isponsorblock: ${{ inputs.isponsorblock }}
