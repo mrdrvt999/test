@@ -32,6 +32,11 @@ on:
         required: false
         default: true
 
+permissions:
+  contents: read
+  actions: read
+  packages: read
+
 jobs:
   build-tweaks:
     name: Build Tweaks
