@@ -27,36 +27,6 @@ on:
         required: false
         type: boolean
 
-      demc:
-        description: "Integrate DontEatMyContent"
-        default: true
-        required: false
-        type: boolean
-
-      isponsorblock:
-        description: "Integrate iSponsorBlock"
-        default: true
-        required: false
-        type: boolean
-
-      ythold:
-        description: "Integrate YTHoldForSpeed"
-        default: false
-        required: false
-        type: boolean
-
-      volumeboost:
-        description: "Integrate VolumeBoostYT"
-        default: false
-        required: false
-        type: boolean
-
-      nativeshare:
-        description: "Integrate YTNativeShare"
-        default: false
-        required: false
-        type: boolean
-
       youpip:
         description: "Integrate YouPiP"
         default: true
@@ -87,6 +57,12 @@ on:
         required: false
         type: boolean
 
+      youchoose:
+        description: "Integrate YouChooseQuality"
+        default: true
+        required: false
+        type: boolean
+
       youslider:
         description: "Integrate YouSlider"
         default: true
@@ -105,20 +81,62 @@ on:
         required: false
         type: boolean
 
-      youchoose:
-        description: "Integrate YouChooseQuality"
-        default: false
-        required: false
-        type: boolean
-
       gonerino:
         description: "Integrate Gonerino"
-        default: false
+        default: true
         required: false
         type: boolean
 
       yougetcaption:
         description: "Integrate YouGetCaption"
+        default: true
+        required: false
+        type: boolean
+
+      youspeed:
+        description: "Integrate YouSpeed"
+        default: true
+        required: false
+        type: boolean
+
+      youmute:
+        description: "Integrate YouMute"
+        default: true
+        required: false
+        type: boolean
+
+      youloop:
+        description: "Integrate YouLoop"
+        default: true
+        required: false
+        type: boolean
+
+      demc:
+        description: "Integrate DontEatMyContent"
+        default: true
+        required: false
+        type: boolean
+
+      isponsorblock:
+        description: "Integrate iSponsorBlock"
+        default: true
+        required: false
+        type: boolean
+
+      ythold:
+        description: "Integrate YTHoldForSpeed"
+        default: false
+        required: false
+        type: boolean
+
+      volumeboost:
+        description: "Integrate VolumeBoostYT"
+        default: false
+        required: false
+        type: boolean
+
+      nativeshare:
+        description: "Integrate YTNativeShare"
         default: false
         required: false
         type: boolean
@@ -147,6 +165,9 @@ jobs:
       youchoose: ${{ inputs.youchoose }}
       gonerino: ${{ inputs.gonerino }}
       yougetcaption: ${{ inputs.yougetcaption }}
+      youspeed: ${{ inputs.youspeed }}
+      youmute: ${{ inputs.youmute }}
+      youloop: ${{ inputs.youloop }}
       youpro: false
       opensafari: ${{ inputs.opensafari }}
 
@@ -168,7 +189,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@1.2.0
         with:
-          exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold,volumeboost,nativeshare,opensafari,youpip,ytuhd,ryd,ytabconfig,youquality,youslider,ytsilentvote,ytweaks,youchoose,gonerino,yougetcaption
+          exclude_inputs: bundle_id,display_name,demc,isponsorblock,ythold,volumeboost,nativeshare,opensafari,youpip,ytuhd,ryd,ytabconfig,youquality,youslider,ytsilentvote,ytweaks,youchoose,gonerino,yougetcaption,youspeed,youmute,youloop
 
       - name: Download and Validate IPA
         run: |

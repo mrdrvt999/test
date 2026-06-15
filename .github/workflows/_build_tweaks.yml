@@ -71,6 +71,18 @@ on:
         type: boolean
         required: false
         default: true
+      youspeed:
+        type: boolean
+        required: false
+        default: true
+      youmute:
+        type: boolean
+        required: false
+        default: true
+      youloop:
+        type: boolean
+        required: false
+        default: true
       opensafari:
         type: boolean
         required: false
@@ -171,6 +183,10 @@ jobs:
           youslider: ${{ inputs.youslider }}
           ytsilentvote: ${{ inputs.ytsilentvote }}
           ytweaks: ${{ inputs.ytweaks }}
+          youspeed: ${{ inputs.youspeed }}
+          youmute: ${{ inputs.youmute }}
+          youloop: ${{ inputs.youloop }}
+          alderis: ${{ inputs.youslider }}
           theos_commit: ${{ steps.commit_hashes.outputs.theos }}
           youpip_commit: ${{ steps.commit_hashes.outputs.youpip }}
           ytuhd_commit: ${{ steps.commit_hashes.outputs.ytuhd }}
@@ -253,28 +269,28 @@ jobs:
           mv packages/*.deb ${{ github.workspace }}/youquality.deb
 
       - name: Clone and Build YouSpeed
-        if: steps.cache_tweaks.outputs.cache_youspeed_hit != 'true'
+        if: inputs.youspeed == true && steps.cache_tweaks.outputs.cache_youspeed_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/PoomSmart/YouSpeed.git
           cd YouSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/youspeed.deb
 
       - name: Clone and Build YouMute
-        if: steps.cache_tweaks.outputs.cache_youmute_hit != 'true'
+        if: inputs.youmute == true && steps.cache_tweaks.outputs.cache_youmute_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/PoomSmart/YouMute.git
           cd YouMute && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/ym.deb
 
       - name: Clone and Build YouLoop
-        if: steps.cache_tweaks.outputs.cache_youloop_hit != 'true'
+        if: inputs.youloop == true && steps.cache_tweaks.outputs.cache_youloop_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/bhackel/YouLoop.git
           cd YouLoop && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/youloop.deb
 
       - name: Clone and Build Alderis
-        if: steps.cache_tweaks.outputs.cache_alderis_hit != 'true'
+        if: inputs.youslider == true && steps.cache_tweaks.outputs.cache_alderis_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/hbang/Alderis.git
           cd Alderis && make clean package DEBUG=0 FINALPACKAGE=1 ARCHS=arm64
