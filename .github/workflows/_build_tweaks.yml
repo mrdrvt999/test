@@ -99,7 +99,9 @@ jobs:
         uses: actions/checkout@v6.0.3
 
       - name: Install Dependencies
-        run: brew install --quiet make ldid swiftlint dpkg meson ninja
+        run: |
+          brew untap aws/tap azure/bicep || true
+          brew install --quiet make ldid swiftlint dpkg meson ninja
 
       - name: Set PATH Environment Variables
         run: |
