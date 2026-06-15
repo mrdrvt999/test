@@ -39,6 +39,72 @@ on:
         required: false
         type: boolean
 
+      youpip:
+        description: "Integrate YouPiP"
+        default: true
+        required: false
+        type: boolean
+
+      ytuhd:
+        description: "Integrate YTUHD"
+        default: true
+        required: false
+        type: boolean
+
+      ryd:
+        description: "Integrate Return YouTube Dislikes"
+        default: true
+        required: false
+        type: boolean
+
+      ytabconfig:
+        description: "Integrate YTABConfig"
+        default: true
+        required: false
+        type: boolean
+
+      youquality:
+        description: "Integrate YouQuality"
+        default: true
+        required: false
+        type: boolean
+
+      youslider:
+        description: "Integrate YouSlider"
+        default: true
+        required: false
+        type: boolean
+
+      ytsilentvote:
+        description: "Integrate YTSilentVote"
+        default: true
+        required: false
+        type: boolean
+
+      ytweaks:
+        description: "Integrate YTweaks"
+        default: true
+        required: false
+        type: boolean
+
+      youchoose:
+        description: "Integrate YouChooseQuality"
+        default: false
+        required: false
+        type: boolean
+
+      gonerino:
+        description: "Integrate Gonerino"
+        default: false
+        required: false
+        type: boolean
+
+      yougetcaption:
+        description: "Integrate YouGetCaption"
+        default: false
+        required: false
+        type: boolean
+
 #      ythold:
 #        description: "Integrate YTHoldForSpeed"
 #        default: false
@@ -55,9 +121,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-
 jobs:
   build-tweaks:
     uses: ./.github/workflows/_build_tweaks.yml
@@ -65,6 +128,17 @@ jobs:
       youpro: true
       isponsorblock: ${{ inputs.isponsorblock }}
       demc: ${{ inputs.demc }}
+      youpip: ${{ inputs.youpip }}
+      ytuhd: ${{ inputs.ytuhd }}
+      ryd: ${{ inputs.ryd }}
+      ytabconfig: ${{ inputs.ytabconfig }}
+      youquality: ${{ inputs.youquality }}
+      youslider: ${{ inputs.youslider }}
+      ytsilentvote: ${{ inputs.ytsilentvote }}
+      ytweaks: ${{ inputs.ytweaks }}
+      youchoose: ${{ inputs.youchoose }}
+      gonerino: ${{ inputs.gonerino }}
+      yougetcaption: ${{ inputs.yougetcaption }}
 #     ythold: ${{ inputs.ythold }}
 #     nativeshare: ${{ inputs.nativeshare }}
       opensafari: ${{ inputs.opensafari }}
@@ -87,7 +161,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@1.2.0
         with:
-          exclude_inputs: bundle_id,display_name,demc,isponsorblock,opensafari
+          exclude_inputs: bundle_id,display_name,demc,isponsorblock,opensafari,youpip,ytuhd,ryd,ytabconfig,youquality,youslider,ytsilentvote,ytweaks,youchoose,gonerino,yougetcaption
 
       - name: Download and Validate IPA
         run: |

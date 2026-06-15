@@ -28,6 +28,15 @@ inputs:
   yougetcaption:
     required: false
     default: 'true'
+  youslider:
+    required: false
+    default: 'true'
+  ytsilentvote:
+    required: false
+    default: 'true'
+  ytweaks:
+    required: false
+    default: 'true'
   isponsorblock:
     required: false
     default: 'false'
@@ -213,7 +222,7 @@ runs:
         key: alderis-${{ inputs.alderis_commit }}-sdk${{ inputs.sdk_version }}
 
     - uses: actions/cache@v5.0.5
-      if: inputs.youslider_commit != ''
+      if: inputs.youslider == 'true' && inputs.youslider_commit != ''
       id: cache_youslider
       with:
         path: ${{ github.workspace }}/youslider.deb
@@ -227,7 +236,7 @@ runs:
         key: youchoose-${{ inputs.youchoose_commit }}-sdk${{ inputs.sdk_version }}
 
     - uses: actions/cache@v5.0.5
-      if: inputs.ytsilentvote_commit != ''
+      if: inputs.ytsilentvote == 'true' && inputs.ytsilentvote_commit != ''
       id: cache_ytsilentvote
       with:
         path: ${{ github.workspace }}/ytnovote.deb
@@ -241,7 +250,7 @@ runs:
         key: gonerino-${{ inputs.gonerino_commit }}-sdk${{ inputs.sdk_version }}
 
     - uses: actions/cache@v5.0.5
-      if: inputs.ytweaks_commit != ''
+      if: inputs.ytweaks == 'true' && inputs.ytweaks_commit != ''
       id: cache_ytweaks
       with:
         path: ${{ github.workspace }}/ytweaks.deb
