@@ -1,13 +1,12 @@
-name: Automated Upstream Merge
+name: Merge Upstream
 
 on:
   schedule:
     - cron: '0 0 * * 0'
-  workflow_dispatch:
 
 jobs:
   merge:
-    name: Merge Upstream Changes
+    name: Merge Upstream
     runs-on: ubuntu-latest
     
     permissions:

@@ -1,4 +1,4 @@
-name: Build Tweaks
+name: Tweaks
 
 on:
   workflow_call:
