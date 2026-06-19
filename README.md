@@ -82,5 +82,5 @@ YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxin
 <ul>
    <li><strong>Latest confirmed:</strong> 21.24.3</li>
    <li><strong>Date tested:</strong> June 15, 2026</li>
-   <li><strong>YouPro/YTLite/YTKP:</strong> 0.3/5.2.1/5.5.6</li>
+   <li><strong>YouPro/YTLite/YTKP:</strong> 0.3/5.2.1/5.6.1</li>
 </ul>
