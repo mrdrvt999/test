@@ -261,7 +261,7 @@ jobs:
           git clone --quiet --depth=1 --recurse-submodules https://github.com/mrdrvt99/YTUHD.git
           cd YTUHD
           make libvpx dav1d
-          make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless SIDELOAD=1
+          make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/ytuhd.deb
 
       - name: Clone and Build Return-YouTube-Dislikes
