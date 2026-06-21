@@ -349,13 +349,9 @@ jobs:
           if [ "${{ inputs.opensafari }}" = "true" ] && [ -e "OpenYouTubeSafariExtension.appex" ]; then
             tweaks="OpenYouTubeSafariExtension.appex"
           fi
-          if [ -f "ytkplus.deb" ]; then
-            tweaks="$tweaks ytkplus.deb"
-          fi
           for f in *.deb; do
-            [ -f "$f" ] && [ "$f" != "ytkplus.deb" ] && tweaks="$tweaks $f"
+            [ -f "$f" ] && tweaks="$tweaks $f"
           done
-
           cyan -i youtube.ipa -o YTKillerPlus_${{ env.YT_VERSION }}_${{ env.YTKP_VERSION }}.ipa -uwesf $tweaks -n "${{ inputs.display_name }}" -b ${{ inputs.bundle_id }}
 
       - name: Create a Draft Release
