@@ -259,7 +259,7 @@ jobs:
         if: inputs.ytuhd == true && steps.cache_tweaks.outputs.cache_ytuhd_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/Tonwalter888/YTUHD_Fix.git
-          cd YTUHD && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          cd YTUHD_Fix && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/ytuhd.deb
 
       - name: Clone and Build Return-YouTube-Dislikes
