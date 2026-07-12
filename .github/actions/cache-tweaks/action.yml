@@ -170,7 +170,7 @@ runs:
       id: cache_ytuhd
       with:
         path: ${{ github.workspace }}/ytuhd.deb
-        key: ytuhd-v2-${{ inputs.ytuhd_commit }}-sdk${{ inputs.sdk_version }}
+        key: ytuhd-v3-${{ inputs.ytuhd_commit }}-sdk${{ inputs.sdk_version }}
 
     - uses: actions/cache@v6
       if: inputs.ryd == 'true'
