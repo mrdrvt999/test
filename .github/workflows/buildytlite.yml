@@ -258,10 +258,8 @@ jobs:
       - name: Clone and Build YTUHD
         if: inputs.ytuhd == true && steps.cache_tweaks.outputs.cache_ytuhd_hit != 'true'
         run: |
-          git clone --quiet --depth=1 --recurse-submodules https://github.com/PoomSmart/YTUHD.git
-          cd YTUHD
-          make libvpx dav1d
-          make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless SIDELOAD=1
+          git clone --quiet --depth=1 https://github.com/Tonwalter888/YTUHD.git
+          cd YTUHD && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/ytuhd.deb
 
       - name: Clone and Build Return-YouTube-Dislikes
@@ -324,7 +322,7 @@ jobs:
         if: inputs.ythold == true && steps.cache_tweaks.outputs.cache_ythold_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/joshuaseltzer/YTHoldForSpeed.git
-          cd YTHoldForSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:latest:15.0
+          cd YTHoldForSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:18.6
           mv packages/*.deb ${{ github.workspace }}/ythold.deb
 
       - name: Clone and Build VolumeBoostYT
@@ -343,6 +341,12 @@ jobs:
           make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
           mv packages/*.deb ${{ github.workspace }}/nativeshare.deb
 
+      - name: Clone and Build YouFixPlaybackIssues
+        run: |
+          git clone --quiet --depth=1 https://github.com/AppropriateNet2928/YTLitePlusRenewed.git
+          cd YTLitePlusRenewed/YouFixPlaybackIssues && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless TARGET=iphone:clang:18.6
+          mv packages/*.deb ${{ github.workspace }}/youfixplaybackissues.deb
+          
       - name: Inject Tweaks Into IPA
         run: |
           tweaks=""
