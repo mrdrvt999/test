@@ -245,7 +245,7 @@ runs:
       id: cache_youchoose
       with:
         path: ${{ github.workspace }}/youchoose.deb
-        key: youchoose-${{ inputs.youchoose_commit }}-sdk${{ inputs.sdk_version }}
+        key: youchoose-v1-${{ inputs.youchoose_commit }}-sdk${{ inputs.sdk_version }}
 
     - uses: actions/cache@v6
       if: inputs.ytsilentvote == 'true' && inputs.ytsilentvote_commit != ''
