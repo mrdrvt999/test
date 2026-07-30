@@ -1,0 +1,24 @@
+name: Build YTKP deb
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dpkg-deb
+        run: sudo apt-get update && sudo apt-get install -y dpkg-dev
+
+      - name: Clone and build
+        run: |
+          git clone --quiet --depth1 https://git.0x0.st/mrdrvt99/YTKP.git
+          cd YTKP
+          chmod -R 755 .
+          dpkg-deb --root-owner-group -Zgzip --build . ../ytkplus.deb
+
+      - name: Upload the .deb
+        uses: actions/upload-artifact@v7
+        with:
+          name: ytkplus-deb
+          path: ytkplus.deb
