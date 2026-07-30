@@ -12,7 +12,7 @@ jobs:
 
       - name: Clone and build
         run: |
-          git clone --quiet --depth1 https://git.0x0.st/mrdrvt99/YTKP.git
+          git clone --quiet --depth=1 https://git.0x0.st/mrdrvt99/YTKP.git
           cd YTKP
           chmod -R 755 .
           dpkg-deb --root-owner-group -Zgzip --build . ../ytkplus.deb
