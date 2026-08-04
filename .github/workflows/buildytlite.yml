@@ -348,6 +348,12 @@ jobs:
           git clone --quiet --depth=1 https://github.com/mrdrvt99/YouFixPlaybackIssues.git
           cd YouFixPlaybackIssues/YouFixPlaybackIssues && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless TARGET=iphone:clang:18.6
           mv packages/*.deb ${{ github.workspace }}/youfixplaybackissues.deb
+
+      - name: Clone and Build YTLocalQueue
+        run: |
+          git clone --quiet --depth=1 https://github.com/bpetrynski/YTLocalQueue.git
+          cd YTLocalQueue && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless TARGET=iphone:clang:18.6
+          mv packages/*.deb ${{ github.workspace }}/youfixplaybackissues.deb
           
       - name: Inject Tweaks Into IPA
         run: |
