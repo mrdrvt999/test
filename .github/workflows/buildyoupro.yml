@@ -35,7 +35,7 @@ on:
 
       ytuhd:
         description: "Integrate YTUHD(21.25.5+ incompatible)"
-        default: true
+        default: false
         required: false
         type: boolean
 
@@ -111,11 +111,11 @@ on:
         required: false
         type: boolean
 
-#      isponsorblock:
-#        description: "Integrate iSponsorBlock"
-#        default: true
-#        required: false
-#        type: boolean
+      isponsorblock:
+        description: "Integrate iSponsorBlock(+21.25.5 incompatible)"
+        default: false
+        required: false
+        type: boolean
 
       ythold:
         description: "Integrate YTHoldForSpeed"
@@ -144,7 +144,7 @@ jobs:
     uses: ./.github/workflows/_build_tweaks.yml
     with:
       youpro: true
-#      isponsorblock: ${{ inputs.isponsorblock }}
+      isponsorblock: ${{ inputs.isponsorblock }}
       demc: ${{ inputs.demc }}
       youpip: ${{ inputs.youpip }}
       ytuhd: ${{ inputs.ytuhd }}
