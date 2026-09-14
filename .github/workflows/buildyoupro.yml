@@ -111,11 +111,11 @@ on:
         required: false
         type: boolean
 
-      isponsorblock:
-        description: "Integrate iSponsorBlock"
-        default: true
-        required: false
-        type: boolean
+#      isponsorblock:
+#        description: "Integrate iSponsorBlock"
+#        default: true
+#        required: false
+#        type: boolean
 
       ythold:
         description: "Integrate YTHoldForSpeed"
@@ -144,7 +144,7 @@ jobs:
     uses: ./.github/workflows/_build_tweaks.yml
     with:
       youpro: true
-      isponsorblock: ${{ inputs.isponsorblock }}
+#      isponsorblock: ${{ inputs.isponsorblock }}
       demc: ${{ inputs.demc }}
       youpip: ${{ inputs.youpip }}
       ytuhd: ${{ inputs.ytuhd }}
@@ -159,8 +159,8 @@ jobs:
       youspeed: ${{ inputs.youspeed }}
       youmute: ${{ inputs.youmute }}
       youloop: ${{ inputs.youloop }}
-      ythold: ${{ inputs.ythold }} //doesn't work with youpro
-      nativeshare: ${{ inputs.nativeshare }} //doesn't work with youpro
+      ythold: ${{ inputs.ythold }}
+      nativeshare: ${{ inputs.nativeshare }}
       opensafari: ${{ inputs.opensafari }}
       pleasedontstopthemusic: ${{ inputs.pleasedontstopthemusic }}
       
