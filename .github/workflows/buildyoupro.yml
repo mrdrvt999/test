@@ -117,23 +117,23 @@ on:
         required: false
         type: boolean
 
-#      ythold: //doesn't work with youpro
-#        description: "Integrate YTHoldForSpeed"
-#        default: false
-#        required: false
-#        type: boolean
+      ythold:
+        description: "Integrate YTHoldForSpeed"
+        default: false
+        required: false
+        type: boolean
 
-#      nativeshare: //doesn't work with youpro
-#        description: "Integrate YTNativeShare"
-#        default: false
-#        required: false
-#        type: boolean
+      nativeshare:
+        description: "Integrate YTNativeShare"
+        default: false
+        required: false
+        type: boolean
 
-#      pleasedontstopthemusic:
-#        description: "Integrate PleaseDontStopTheMusic"
-#        default: false
-#        required: false
-#        type: boolean
+      pleasedontstopthemusic:
+        description: "Integrate PleaseDontStopTheMusic"
+        default: false
+        required: false
+        type: boolean
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -159,10 +159,10 @@ jobs:
       youspeed: ${{ inputs.youspeed }}
       youmute: ${{ inputs.youmute }}
       youloop: ${{ inputs.youloop }}
-#     ythold: ${{ inputs.ythold }} //doesn't work with youpro
-#     nativeshare: ${{ inputs.nativeshare }} //doesn't work with youpro
+      ythold: ${{ inputs.ythold }} //doesn't work with youpro
+      nativeshare: ${{ inputs.nativeshare }} //doesn't work with youpro
       opensafari: ${{ inputs.opensafari }}
-#      pleasedontstopthemusic: ${{ inputs.pleasedontstopthemusic }}
+      pleasedontstopthemusic: ${{ inputs.pleasedontstopthemusic }}
       
   package:
     name: Build YouPro IPA
