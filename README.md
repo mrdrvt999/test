@@ -1,6 +1,11 @@
-# YouProEXTRA
-YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxing.
+<p align="center">
+  <img src="assets/banner.png" alt="YouProEXTRA" width="100%">
+</p>
 
+<p align="center">
+  YouTube IPA builder packed with customizable tweaks.<br>
+  Also Known as Youtubemaxxing.
+</p>
 ## Main features
 - **[YouPro](https://t.me/alibusut)** - Basic Youtube Premium features; Download Videos, No ads, Background Playback.
 - **[YoutubePlus/YTLite](https://github.com/dayanch96/YTLite)** - A flexible enhancer for YouTube on iOS, featuring over hundred customizable options.
