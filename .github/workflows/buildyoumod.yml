@@ -178,7 +178,7 @@ jobs:
         run: |
           git clone --quiet --depth=1 -n --filter=tree:0 https://github.com/Tonwalter888/iOS-SDKs.git
           cd iOS-SDKs
-          git sparse-checkout set --no-cone iPhoneOS18.6.sdk
+          git sparse-checkout set --no-cone iPhoneOS26.5.sdk
           git checkout
           mv *.sdk $THEOS/sdks
 
@@ -218,7 +218,7 @@ jobs:
         id: cache_tweaks
         uses: ./.github/actions/cache-tweaks
         with:
-          sdk_version: '18.6'
+          sdk_version: '26.5'
           youpip: ${{ inputs.youpip }}
           ytuhd: ${{ inputs.ytuhd }}
           ryd: ${{ inputs.ryd }}
@@ -258,14 +258,14 @@ jobs:
           cd YTVideoOverlay && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/ytvo.deb
 
-      - name: Build YouMod
+      - name: Clone and Build YouMod
         run: |
           git clone --quiet --depth=1 https://github.com/tonwalter888/youmod.git
           cd youmod
           find Files -type f \( -name "*.h" -o -name "*.x" -o -name "*.m" \) -exec perl -pi -e 's/#import <roothide\.h>/#import <rootless.h>\n#define jbroot(path) ROOT_PATH_NS(path)/g' {} +
           echo "YOUMOD_VERSION=$(grep '^Version:' control 2>/dev/null | awk '{print $2}' || grep '^Version:' DEBIAN/control | awk '{print $2}')" >> $GITHUB_ENV
           make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-          mv packages/*.deb $GITHUB_WORKSPACE/youmod.deb
+          mv packages/*.deb ${{ github.workspace }}/youmod.deb
 
       - name: Clone and Build YouPiP
         if: inputs.youpip == true && steps.cache_tweaks.outputs.cache_youpip_hit != 'true'
@@ -348,7 +348,7 @@ jobs:
         if: inputs.ythold == true && steps.cache_tweaks.outputs.cache_ythold_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/joshuaseltzer/YTHoldForSpeed.git
-          cd YTHoldForSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:18.6:14.0
+          cd YTHoldForSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:26.5:14.0
           mv packages/*.deb ${{ github.workspace }}/ythold.deb
 
       - name: Clone and Build VolumeBoostYT
@@ -371,7 +371,7 @@ jobs:
         if: steps.cache_tweaks.outputs.cache_youfixplaybackissues_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/mrdrvt99/YouFixPlaybackIssues.git
-          cd YouFixPlaybackIssues/YouFixPlaybackIssues && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless TARGET=iphone:clang:18.6
+          cd YouFixPlaybackIssues/YouFixPlaybackIssues && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless TARGET=iphone:clang:26.5
           mv packages/*.deb ${{ github.workspace }}/youfixplaybackissues.deb
 
       - name: Clone and Build PleaseDontStopTheMusic
