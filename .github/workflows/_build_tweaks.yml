@@ -90,12 +90,17 @@ on:
 jobs:
   build-tweaks:
     name: Build Tweaks
-    runs-on: macos-15
+    runs-on: macos-26
     env:
       HOMEBREW_NO_ENV_HINTS: 1
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
+
+      - name: Xcode 26.5
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26.5'
 
       - name: Install Dependencies
         run: |
