@@ -297,6 +297,13 @@ jobs:
         if: inputs.youslider == true && steps.cache_tweaks.outputs.cache_alderis_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/hbang/Alderis.git
+          python3 -c "
+          import glob
+          for path in glob.glob('Alderis/**/*.pbxproj', recursive=True):
+              with open(path, 'r') as f: content = f.read()
+              content = content.replace('ENABLE_USER_SCRIPT_SANDBOXING = YES;', 'ENABLE_USER_SCRIPT_SANDBOXING = NO;')
+              with open(path, 'w') as f: f.write(content)
+          "
           cd Alderis && make clean package DEBUG=0 FINALPACKAGE=1 ARCHS=arm64
           mv packages/*.deb ${{ github.workspace }}/alderis.deb
 
