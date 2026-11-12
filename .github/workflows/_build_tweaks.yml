@@ -297,8 +297,8 @@ jobs:
         if: inputs.youslider == true && steps.cache_tweaks.outputs.cache_alderis_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/hbang/Alderis.git
-          python3 -c 'import pathlib, re; p = pathlib.Path("Alderis/Alderis.xcodeproj/project.pbxproj"); t = p.read_text().replace("ENABLE_USER_SCRIPT_SANDBOXING = YES;", "ENABLE_USER_SCRIPT_SANDBOXING = NO;"); t = re.sub(r"[A-F0-9]{24} /\* SwiftLint \*/,\n?", "", t); t = re.sub(r"[A-F0-9]{24} /\* SwiftLint \*/ = \{[^}]+\};\n?", "", t, flags=re.DOTALL); p.write_text(t)'
-          cd Alderis && make clean package DEBUG=0 FINALPACKAGE=1 ARCHS=arm64
+          python3 -c 'import pathlib; p = pathlib.Path("Alderis/Alderis.xcodeproj/project.pbxproj"); p.write_text(p.read_text().replace("ENABLE_USER_SCRIPT_SANDBOXING = YES;", "ENABLE_USER_SCRIPT_SANDBOXING = NO;"))'
+          cd Alderis && make clean package DEBUG=0 FINALPACKAGE=1 ARCHS=arm64 SDKROOT=iphoneos TARGET=iphone:clang:18.6:14.0
           mv packages/*.deb ${{ github.workspace }}/alderis.deb
 
       - name: Clone and Build YouSlider
