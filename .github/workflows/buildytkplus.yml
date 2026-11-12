@@ -117,7 +117,7 @@ concurrency:
 jobs:
   build:
     name: Build YTKillerPlus IPA
-    runs-on: macos-26
+    runs-on: xcode-27
     permissions:
       contents: write
     env:
@@ -125,11 +125,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
-
-      - name: Xcode 26.5
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '26.5'
 
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@v1
@@ -183,7 +178,7 @@ jobs:
         run: |
           git clone --quiet --depth=1 -n --filter=tree:0 https://github.com/Tonwalter888/iOS-SDKs.git
           cd iOS-SDKs
-          git sparse-checkout set --no-cone iPhoneOS26.5.sdk
+          git sparse-checkout set --no-cone iPhoneOS18.6.sdk
           git checkout
           mv *.sdk $THEOS/sdks
 
@@ -223,7 +218,7 @@ jobs:
         id: cache_tweaks
         uses: ./.github/actions/cache-tweaks
         with:
-          sdk_version: '26.5'
+          sdk_version: '18.6'
           youpip: ${{ inputs.youpip }}
           ytuhd: ${{ inputs.ytuhd }}
           ryd: ${{ inputs.ryd }}
@@ -352,7 +347,7 @@ jobs:
         if: inputs.ythold == true && steps.cache_tweaks.outputs.cache_ythold_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/joshuaseltzer/YTHoldForSpeed.git
-          cd YTHoldForSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:26.5:14.0
+          cd YTHoldForSpeed && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64 TARGET=iphone:clang:18.6:14.0
           mv packages/*.deb ${{ github.workspace }}/ythold.deb
 
       - name: Clone and Build VolumeBoostYT
@@ -375,7 +370,7 @@ jobs:
         if: steps.cache_tweaks.outputs.cache_youfixplaybackissues_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/mrdrvt99/YouFixPlaybackIssues.git
-          cd YouFixPlaybackIssues/YouFixPlaybackIssues && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless TARGET=iphone:clang:26.5
+          cd YouFixPlaybackIssues/YouFixPlaybackIssues && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless TARGET=iphone:clang:18.6
           mv packages/*.deb ${{ github.workspace }}/youfixplaybackissues.deb
 
       - name: Clone and Build PleaseDontStopTheMusic
