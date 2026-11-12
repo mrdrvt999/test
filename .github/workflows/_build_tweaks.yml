@@ -297,14 +297,7 @@ jobs:
         if: inputs.youslider == true && steps.cache_tweaks.outputs.cache_alderis_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/hbang/Alderis.git
-          python3 -c '
-          import pathlib, re
-          p = pathlib.Path("Alderis/Alderis.xcodeproj/project.pbxproj")
-          t = p.read_text()
-          t = re.sub(r",?\s*CF77511225281F7E0069CC57 /\* SwiftLint \*/,?", "", t)
-          t = re.sub(r"CF77511225281F7E0069CC57 /\* SwiftLint \*/ = \{.*?\};", "", t, flags=re.S)
-          p.write_text(t)
-          '
+          python3 -c 'import pathlib, re; p = pathlib.Path("Alderis/Alderis.xcodeproj/project.pbxproj"); t = p.read_text().replace("ENABLE_USER_SCRIPT_SANDBOXING = YES;", "ENABLE_USER_SCRIPT_SANDBOXING = NO;"); t = re.sub(r"[A-F0-9]{24} /\* SwiftLint \*/,\n?", "", t); t = re.sub(r"[A-F0-9]{24} /\* SwiftLint \*/ = \{[^}]+\};\n?", "", t, flags=re.DOTALL); p.write_text(t)'
           cd Alderis && make clean package DEBUG=0 FINALPACKAGE=1 ARCHS=arm64
           mv packages/*.deb ${{ github.workspace }}/alderis.deb
 
