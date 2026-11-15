@@ -171,7 +171,7 @@ runs:
         fi
 
         if [ "$VOLUMEBOOST" = "true" ]; then
-          get_hash volumeboost candyzp/VolumeBoostYT
+          get_hash volumeboost mrdrvt99/VolumeBoostYT
         else
           echo "volumeboost=disabled" >> "$GITHUB_OUTPUT"
         fi

@@ -369,8 +369,8 @@ jobs:
       - name: Clone and Build VolumeBoostYT
         if: inputs.volumeboost == true && steps.cache_tweaks.outputs.cache_volumeboost_hit != 'true'
         run: |
-          git clone --quiet --depth=1 https://github.com/candyzp/VolumeBoostYT.git
-          cd VolumeBoostYT && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
+          git clone --quiet --depth=1 https://github.com/mrdrvt99/VolumeBoostYT.git
+          cd VolumeBoostYT && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/volumeboost.deb
 
       - name: Clone and Build YTNativeShare
