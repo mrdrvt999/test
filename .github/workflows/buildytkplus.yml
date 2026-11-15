@@ -1,122 +1,124 @@
 name: Build YTKillerPlus IPA
-on:
-  workflow_dispatch:
-    inputs:
-      ipa_url:
-        description: "URL to the decrypted IPA file"
-        default: ""
-        required: true
-        type: string
 
-      display_name:
-        description: "App Name (Optional)"
-        default: "YouTube"
-        required: true
-        type: string
-
-      bundle_id:
-        description: "Bundle ID (Optional)"
-        default: "com.google.ios.youtube"
-        required: true
-        type: string
-
-      opensafari:
-        description: "Integrate Open in YouTube (Safari Extension)"
-        default: true
-        required: false
-        type: boolean
-
-      demc:
-        description: "Integrate DontEatMyContent"
-        default: true
-        required: false
-        type: boolean
-
-      youpip:
-        description: "Integrate YouPiP"
-        default: true
-        required: false
-        type: boolean
-
-      ytuhd:
-        description: "Integrate YTUHD(21.25.5+ incompatible)"
-        default: false
-        required: false
-        type: boolean
-
-      ryd:
-        description: "Integrate Return YouTube Dislikes"
-        default: true
-        required: false
-        type: boolean
-
-      ytabconfig:
-        description: "Integrate YTABConfig"
-        default: true
-        required: false
-        type: boolean
-
-      youquality:
-        description: "Integrate YouQuality"
-        default: true
-        required: false
-        type: boolean
-
-      youchoose:
-        description: "Integrate YouChooseQuality"
-        default: true
-        required: false
-        type: boolean
-
-      ytweaks:
-        description: "Integrate YTweaks(20.10.4+)"
-        default: true
-        required: false
-        type: boolean
-
-      gonerino:
-        description: "Integrate Gonerino(21.25.5+)"
-        default: false
-        required: false
-        type: boolean
-
-      yougetcaption:
-        description: "Integrate YouGetCaption"
-        default: false
-        required: false
-        type: boolean
-
-      ythold:
-        description: "Integrate YTHoldForSpeed"
-        default: false
-        required: false
-        type: boolean
-
-      volumeboost:
-        description: "Integrate VolumeBoostYT(iOS16+)"
-        default: false
-        required: false
-        type: boolean
-
-      nativeshare:
-        description: "Integrate YTNativeShare(19.35.3+)"
-        default: false
-        required: false
-        type: boolean
-
-      pleasedontstopthemusic:
-        description: "Integrate PleaseDontStopTheMusic"
-        default: false
-        required: false
-        type: boolean
-
-permissions:
-  contents: read
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
+on: []
+#on:
+#  workflow_dispatch:
+#    inputs:
+#      ipa_url:
+#        description: "URL to the decrypted IPA file"
+#        default: ""
+#        required: true
+#        type: string
+#
+#      display_name:
+#        description: "App Name (Optional)"
+#        default: "YouTube"
+#        required: true
+#        type: string
+#
+#      bundle_id:
+#        description: "Bundle ID (Optional)"
+#        default: "com.google.ios.youtube"
+#        required: true
+#        type: string
+#
+#      opensafari:
+#        description: "Integrate Open in YouTube (Safari Extension)"
+#        default: true
+#        required: false
+#        type: boolean
+#
+#      demc:
+#        description: "Integrate DontEatMyContent"
+#        default: true
+#        required: false
+#        type: boolean
+#
+#      youpip:
+#        description: "Integrate YouPiP"
+#        default: true
+#        required: false
+#        type: boolean
+#
+#      ytuhd:
+#        description: "Integrate YTUHD(21.25.5+ incompatible)"
+#        default: false
+#        required: false
+#        type: boolean
+#
+#      ryd:
+#        description: "Integrate Return YouTube Dislikes"
+#        default: true
+#        required: false
+#        type: boolean
+#
+#      ytabconfig:
+#        description: "Integrate YTABConfig"
+#        default: true
+#        required: false
+#        type: boolean
+#
+#      youquality:
+#        description: "Integrate YouQuality"
+#        default: true
+#        required: false
+#        type: boolean
+#
+#      youchoose:
+#        description: "Integrate YouChooseQuality"
+#        default: true
+#        required: false
+#        type: boolean
+#
+#      ytweaks:
+#        description: "Integrate YTweaks(20.10.4+)"
+#        default: true
+#        required: false
+#        type: boolean
+#
+#      gonerino:
+#        description: "Integrate Gonerino(21.25.5+)"
+#        default: false
+#        required: false
+#        type: boolean
+#
+#      yougetcaption:
+#        description: "Integrate YouGetCaption"
+#        default: false
+#        required: false
+#        type: boolean
+#
+#      ythold:
+#        description: "Integrate YTHoldForSpeed"
+#        default: false
+#        required: false
+#        type: boolean
+#
+#      volumeboost:
+#        description: "Integrate VolumeBoostYT(iOS16+)"
+#        default: false
+#        required: false
+#        type: boolean
+#
+#      nativeshare:
+#        description: "Integrate YTNativeShare(19.35.3+)"
+#        default: false
+#        required: false
+#        type: boolean
+#
+#      pleasedontstopthemusic:
+#        description: "Integrate PleaseDontStopTheMusic"
+#        default: false
+#        required: false
+#        type: boolean
+#
+#permissions:
+#  contents: read
+#
+#concurrency:
+#  group: ${{ github.workflow }}-${{ github.ref }}
+#  cancel-in-progress: true
+#
 jobs:
   build:
     name: Build YTKillerPlus IPA

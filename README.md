@@ -9,7 +9,6 @@
 ## Main features
 - **[YouPro](https://t.me/alibusut)** - Basic Youtube Premium features; Download Videos, No ads, Background Playback.
 - **[YoutubePlus/YTLite](https://github.com/dayanch96/YTLite)** - A flexible enhancer for YouTube on iOS, featuring over hundred customizable options.
-- **[YTKillerPlus](https://repo.ikghd.me/depictions/?p=me.ikghd.ytkplus)** - Alternative Youtube tweak with more customized options.
 - **[YouMod](https://github.com/Tonwalter888/YouMod)** - a free alternative youtube tweak with customized options.
 - **[YTKACE](https://github.com/itzzace/ytkace)** - A new free and open-source YouTube enhancer for iOS with downloads, SponsorBlock, DeArrow, player controls, and interface customization.
 - **[YTMusicUltimate](https://github.com/mrdrvt99/YTMusicUltimate)** - Background playback, ad removal, Downloads and other small improvements.
@@ -98,6 +97,6 @@
   > [!NOTE]
   > - iOS14+ and 16+ builds are now available on the releases page.
   
-   <li><strong>Date tested:</strong> Sep 28th, 2026</li>
-   <li><strong>YouPro/YTLite/YTKP/YTKACE/YouMod:</strong> 1.3.1/6.0b1/6.1/1.1.0/2.0.0</li>
+   <li><strong>Date tested:</strong> Nov 15th, 2026</li>
+   <li><strong>YouPro/YTLite/YTKACE/YouMod:</strong> 1.3.4/6.0/1.1.7/2.0.0</li>
 </ul>
