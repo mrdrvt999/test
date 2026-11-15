@@ -75,8 +75,8 @@ on:
         required: false
         type: boolean
 
-      gonerino:
-        description: "Integrate Gonerino(21.25.5+)"
+      ytlowcontrastmode:
+        description: "Integrate YTLowContrastMode(19.21.2+)"
         default: true
         required: false
         type: boolean
@@ -117,6 +117,12 @@ on:
         required: false
         type: boolean
 
+      gonerino:
+        description: "Integrate Gonerino(21.25.5+)"
+        default: false
+        required: false
+        type: boolean
+
 #      ythold: //doesn't work with youpro
 #        description: "Integrate YTHoldForSpeed"
 #        default: false
@@ -129,7 +135,7 @@ on:
 #        required: false
 #        type: boolean
 
-#      pleasedontstopthemusic:
+#      pleasedontstopthemusic: //doesn't work with youpro
 #        description: "Integrate PleaseDontStopTheMusic"
 #        default: false
 #        required: false
@@ -164,10 +170,11 @@ jobs:
       youspeed: ${{ inputs.youspeed }}
       youmute: ${{ inputs.youmute }}
       youloop: ${{ inputs.youloop }}
+      opensafari: ${{ inputs.opensafari }}
+      ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
 #     ythold: ${{ inputs.ythold }} //doesn't work with youpro
 #     nativeshare: ${{ inputs.nativeshare }} //doesn't work with youpro
-      opensafari: ${{ inputs.opensafari }}
-#     pleasedontstopthemusic: ${{ inputs.pleasedontstopthemusic }}
+#     pleasedontstopthemusic: ${{ inputs.pleasedontstopthemusic }} //doesn't work with youpro
 
   package:
     name: Build YouPro IPA
@@ -182,7 +189,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@v1
         with:
-          exclude_inputs: bundle_id,display_name,demc,isponsorblock,opensafari,youpip,ytuhd,ryd,ytabconfig,youquality,youslider,ytweaks,youchoose,gonerino,yougetcaption,youspeed,youmute,youloop,pleasedontstopthemusic
+          exclude_inputs: bundle_id,display_name,demc,isponsorblock,opensafari,youpip,ytuhd,ryd,ytabconfig,youquality,youslider,ytweaks,youchoose,gonerino,yougetcaption,youspeed,youmute,youloop,pleasedontstopthemusic,ytlowcontrastmode
 
       - name: Download Built Debs
         uses: actions/download-artifact@v8

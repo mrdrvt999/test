@@ -95,37 +95,37 @@ on:
 
       ytweaks:
         description: "Integrate YTweaks(20.10.4+)"
-        default: false
+        default: true
         required: false
         type: boolean
 
-      gonerino:
-        description: "Integrate Gonerino(21.25.5+)"
-        default: false
+      ytlowcontrastmode:
+        description: "Integrate YTLowContrastMode(19.21.2+)"
+        default: true
         required: false
         type: boolean
 
       yougetcaption:
         description: "Integrate YouGetCaption"
-        default: false
+        default: true
         required: false
         type: boolean
 
       youspeed:
         description: "Integrate YouSpeed"
-        default: false
+        default: true
         required: false
         type: boolean
 
       youmute:
         description: "Integrate YouMute"
-        default: false
+        default: true
         required: false
         type: boolean
 
       youloop:
         description: "Integrate YouLoop"
-        default: false
+        default: true
         required: false
         type: boolean
 
@@ -143,6 +143,12 @@ on:
 
       nativeshare:
         description: "Integrate YTNativeShare(19.35.3+)"
+        default: false
+        required: false
+        type: boolean
+
+      gonerino:
+        description: "Integrate Gonerino(21.25.5+)"
         default: false
         required: false
         type: boolean
@@ -187,6 +193,7 @@ jobs:
       youpro: false
       opensafari: ${{ inputs.opensafari }}
       pleasedontstopthemusic: ${{ inputs.pleasedontstopthemusic }}
+      ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
 
   package:
     name: Build IPA with Custom tweak
@@ -201,7 +208,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@v1
         with:
-          exclude_inputs: bundle_id,display_name,custom_name,demc,isponsorblock,ythold,volumeboost,nativeshare,opensafari,youpip,ytuhd,ryd,ytabconfig,youquality,youslider,ytweaks,youchoose,gonerino,yougetcaption,youspeed,youmute,youloop,pleasedontstopthemusic
+          exclude_inputs: bundle_id,display_name,custom_name,demc,isponsorblock,ythold,volumeboost,nativeshare,opensafari,youpip,ytuhd,ryd,ytabconfig,youquality,youslider,ytweaks,youchoose,gonerino,yougetcaption,youspeed,youmute,youloop,pleasedontstopthemusic,ytlowcontrastmode
 
       - name: Download Built Debs
         uses: actions/download-artifact@v8

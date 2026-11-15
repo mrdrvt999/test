@@ -87,6 +87,10 @@ on:
         type: boolean
         required: false
         default: false
+      ytlowcontrastmode:
+        type: boolean
+        required: false
+        default: true
 jobs:
   build-tweaks:
     name: Build Tweaks
@@ -121,6 +125,7 @@ jobs:
           volumeboost: ${{ inputs.volumeboost }}
           nativeshare: ${{ inputs.nativeshare }}
           pleasedontstopthemusic: ${{ inputs.pleasedontstopthemusic }}
+          ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
 
       - name: Cache Theos
         uses: ./.github/actions/cache-theos
@@ -194,6 +199,7 @@ jobs:
           youloop: ${{ inputs.youloop }}
           alderis: ${{ inputs.youslider }}
           pleasedontstopthemusic: ${{ inputs.pleasedontstopthemusic }}
+          ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
           youpip_commit: ${{ steps.commit_hashes.outputs.youpip }}
           ytuhd_commit: ${{ steps.commit_hashes.outputs.ytuhd }}
           ryd_commit: ${{ steps.commit_hashes.outputs.ryd }}
@@ -218,6 +224,7 @@ jobs:
           nativeshare_commit: ${{ steps.commit_hashes.outputs.nativeshare }}
           youfixplaybackissues_commit: ${{ steps.commit_hashes.outputs.youfixplaybackissues }}
           pleasedontstopthemusic_commit: ${{ steps.commit_hashes.outputs.pleasedontstopthemusic }}
+          ytlowcontrastmode_commit: ${{ steps.commit_hashes.outputs.ytlowcontrastmode }}
 
       - name: Build YTVideoOverlay
         if: steps.cache_tweaks.outputs.cache_ytvo_hit != 'true'
@@ -317,19 +324,19 @@ jobs:
           cd YouChooseQuality && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/youchoose.deb
 
-      - name: Clone and Build Gonerino
-        if: inputs.gonerino == true && steps.cache_tweaks.outputs.cache_gonerino_hit != 'true'
-        run: |
-          git clone --quiet --depth=1 https://github.com/castdrian/Gonerino.git
-          cd Gonerino && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-          mv packages/*.deb ${{ github.workspace }}/gonerino.deb
-
       - name: Clone and Build YTweaks
         if: inputs.ytweaks == true && steps.cache_tweaks.outputs.cache_ytweaks_hit != 'true'
         run: |
           git clone --quiet --depth=1 https://github.com/fosterbarnes/YTweaks.git
           cd YTweaks && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/ytweaks.deb
+
+      - name: Clone and Build YTLowContrastMode
+        if: inputs.ytlowcontrastmode == true && steps.cache_tweaks.outputs.cache_ytlowcontrastmode_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/Mark02-2012/YTLowContrastMode.git
+          cd YTLowContrastMode && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
+          mv packages/*.deb ${{ github.workspace }}/ytlowcontrastmode.deb
 
       - name: Clone and Build YouGetCaption
         if: inputs.yougetcaption == true && steps.cache_tweaks.outputs.cache_yougetcaption_hit != 'true'
@@ -388,6 +395,13 @@ jobs:
           git clone --quiet --depth=1 https://github.com/mrdrvt99/YouFixPlaybackIssues.git
           cd YouFixPlaybackIssues/YouFixPlaybackIssues && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless TARGET=iphone:clang:${SDK_VERSION}
           mv packages/*.deb ${{ github.workspace }}/youfixplaybackissues.deb
+
+      - name: Clone and Build Gonerino
+        if: inputs.gonerino == true && steps.cache_tweaks.outputs.cache_gonerino_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/castdrian/Gonerino.git
+          cd Gonerino && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/gonerino.deb
 
       - name: Clone and Build PleaseDontStopTheMusic
         if: inputs.pleasedontstopthemusic == true && steps.cache_tweaks.outputs.cache_pleasedontstopthemusic_hit != 'true'

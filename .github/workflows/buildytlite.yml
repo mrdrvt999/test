@@ -74,15 +74,15 @@ on:
         required: false
         type: boolean
 
-      gonerino:
-        description: "Integrate Gonerino(21.25.5+)"
-        default: false
+      ytlowcontrastmode:
+        description: "Integrate YTLowContrastMode(19.21.2+)"
+        default: true
         required: false
         type: boolean
 
       yougetcaption:
         description: "Integrate YouGetCaption"
-        default: false
+        default: true
         required: false
         type: boolean
 
@@ -104,14 +104,14 @@ on:
         required: false
         type: boolean
 
-      pleasedontstopthemusic:
-        description: "Integrate PleaseDontStopTheMusic"
+      gonerino:
+        description: "Integrate Gonerino(21.25.5+)(unstable)"
         default: false
         required: false
         type: boolean
 
-      ytlowcontrastmode:
-        description: "Integrate YTLowContrastMode(19.21.2+)"
+      pleasedontstopthemusic:
+        description: "Integrate PleaseDontStopTheMusic"
         default: false
         required: false
         type: boolean
@@ -184,6 +184,7 @@ jobs:
           volumeboost: ${{ inputs.volumeboost }}
           nativeshare: ${{ inputs.nativeshare }}
           pleasedontstopthemusic: ${{ inputs.pleasedontstopthemusic }}
+          ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
 
       - name: Install Dependencies
         run: |
@@ -262,6 +263,7 @@ jobs:
           volumeboost: ${{ inputs.volumeboost }}
           nativeshare: ${{ inputs.nativeshare }}
           pleasedontstopthemusic: ${{ inputs.pleasedontstopthemusic }}
+          ytlowcontrastmode: ${{ inputs.ytlowcontrastmode }}
           youpip_commit: ${{ steps.commit_hashes.outputs.youpip }}
           ytuhd_commit: ${{ steps.commit_hashes.outputs.ytuhd }}
           ryd_commit: ${{ steps.commit_hashes.outputs.ryd }}
@@ -279,6 +281,7 @@ jobs:
           nativeshare_commit: ${{ steps.commit_hashes.outputs.nativeshare }}
           youfixplaybackissues_commit: ${{ steps.commit_hashes.outputs.youfixplaybackissues }}
           pleasedontstopthemusic_commit: ${{ steps.commit_hashes.outputs.pleasedontstopthemusic }}
+          ytlowcontrastmode_commit: ${{ steps.commit_hashes.outputs.ytlowcontrastmode }}
 
       - name: Build YTVideoOverlay
         if: steps.cache_tweaks.outputs.cache_ytvo_hit != 'true'
@@ -356,12 +359,12 @@ jobs:
           cd YTweaks && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
           mv packages/*.deb ${{ github.workspace }}/ytweaks.deb
 
-      - name: Clone and Build Gonerino
-        if: inputs.gonerino == true && steps.cache_tweaks.outputs.cache_gonerino_hit != 'true'
+      - name: Clone and Build YTLowContrastMode
+        if: inputs.ytlowcontrastmode == true && steps.cache_tweaks.outputs.cache_ytlowcontrastmode_hit != 'true'
         run: |
-          git clone --quiet --depth=1 https://github.com/castdrian/Gonerino.git
-          cd Gonerino && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
-          mv packages/*.deb ${{ github.workspace }}/gonerino.deb
+          git clone --quiet --depth=1 https://github.com/Mark02-2012/YTLowContrastMode.git
+          cd YTLowContrastMode && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
+          mv packages/*.deb ${{ github.workspace }}/ytlowcontrastmode.deb
 
       - name: Clone and Build YouGetCaption
         if: inputs.yougetcaption == true && steps.cache_tweaks.outputs.cache_yougetcaption_hit != 'true'
@@ -407,6 +410,13 @@ jobs:
           cd YouFixPlaybackIssues/YouFixPlaybackIssues && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless TARGET=iphone:clang:${SDK_VERSION}
           mv packages/*.deb ${{ github.workspace }}/youfixplaybackissues.deb
 
+      - name: Clone and Build Gonerino
+        if: inputs.gonerino == true && steps.cache_tweaks.outputs.cache_gonerino_hit != 'true'
+        run: |
+          git clone --quiet --depth=1 https://github.com/castdrian/Gonerino.git
+          cd Gonerino && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mv packages/*.deb ${{ github.workspace }}/gonerino.deb
+
       - name: Clone and Build PleaseDontStopTheMusic
         if: inputs.pleasedontstopthemusic == true && steps.cache_tweaks.outputs.cache_pleasedontstopthemusic_hit != 'true'
         run: |
@@ -414,13 +424,6 @@ jobs:
           cd PleaseDontStopTheMusic
           make -C rootless clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
           mv rootless/packages/*.deb ${{ github.workspace }}/pleasedontstopthemusic.deb
-
-      - name: Clone and Build YTLowContrastMode
-        if: inputs.ytlowcontrastmode == true
-        run: |
-          git clone --quiet --depth=1 https://github.com/Mark02-2012/YTLowContrastMode.git
-          cd YTLowContrastMode && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
-          mv packages/*.deb ${{ github.workspace }}/ytlowcontrastmode.deb
 
       - name: Inject Tweaks Into IPA
         env:

@@ -26,6 +26,10 @@ inputs:
     description: Resolve pleasedontstopthemusic
     required: false
     default: 'false'
+  ytlowcontrastmode:
+    description: Resolve ytlowcontrastmode
+    required: false
+    default: 'false'
 
 outputs:
   youpip:
@@ -100,6 +104,9 @@ outputs:
   pleasedontstopthemusic:
     description: PleaseDontStopTheMusic commit hash
     value: ${{ steps.hashes.outputs.pleasedontstopthemusic }}
+  ytlowcontrastmode:
+    description: YTLowContrastMode commit hash
+    value: ${{ steps.hashes.outputs.ytlowcontrastmode }}
 
 runs:
   using: composite
@@ -114,6 +121,7 @@ runs:
         VOLUMEBOOST: ${{ inputs.volumeboost }}
         NATIVESHARE: ${{ inputs.nativeshare }}
         PLEASEDONTSTOPTHEMUSIC: ${{ inputs.pleasedontstopthemusic }}
+        YTLOWCONTRASTMODE: ${{ inputs.ytlowcontrastmode }}
       run: |
         export GIT_TERMINAL_PROMPT=0
 
@@ -186,4 +194,10 @@ runs:
           get_hash pleasedontstopthemusic mikey820/PleaseDontStopTheMusic
         else
           echo "pleasedontstopthemusic=disabled" >> "$GITHUB_OUTPUT"
+        fi
+
+        if [ "$YTLOWCONTRASTMODE" = "true" ]; then
+          get_hash ytlowcontrastmode Mark02-2012/YTLowContrastMode
+        else
+          echo "ytlowcontrastmode=disabled" >> "$GITHUB_OUTPUT"
         fi

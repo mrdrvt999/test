@@ -64,6 +64,9 @@ inputs:
   pleasedontstopthemusic:
     required: false
     default: 'false'
+  ytlowcontrastmode:
+    required: false
+    default: 'false'
   youpip_commit:
     required: true
   ytuhd_commit:
@@ -128,6 +131,9 @@ inputs:
   pleasedontstopthemusic_commit:
     required: false
     default: 'disabled'
+  ytlowcontrastmode_commit:
+    required: false
+    default: 'disabled'
 
 outputs:
   cache_youpip_hit:
@@ -178,6 +184,8 @@ outputs:
     value: "${{ steps.cache_youfixplaybackissues.outputs.cache-hit }}"
   cache_pleasedontstopthemusic_hit:
     value: "${{ steps.cache_pleasedontstopthemusic.outputs.cache-hit }}"
+  cache_ytlowcontrastmode_hit:
+    value: "${{ steps.cache_ytlowcontrastmode_hit.outputs.cache-hit }}"
 
 runs:
   using: composite
@@ -350,3 +358,10 @@ runs:
       with:
         path: ${{ github.workspace }}/pleasedontstopthemusic.deb
         key: pleasedontstopthemusic-${{ inputs.pleasedontstopthemusic_commit }}-sdk${{ inputs.sdk_version }}
+
+    - uses: actions/cache@v6
+      if: inputs.ytlowcontrastmode == 'true' && inputs.ytlowcontrastmode_commit != ''
+      id: cache_ytlowcontrastmode
+      with:
+        path: ${{ github.workspace }}/ytlowcontrastmode.deb
+        key: ytlowcontrastmode-${{ inputs.ytlowcontrastmode_commit }}-sdk${{ inputs.sdk_version }}
