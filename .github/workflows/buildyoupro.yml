@@ -64,8 +64,8 @@ on:
         type: boolean
 
       youslider:
-        description: "Integrate YouSlider"
-        default: true
+        description: "Integrate YouSlider(unstable in +v21)"
+        default: false
         required: false
         type: boolean
 

@@ -110,6 +110,12 @@ on:
         required: false
         type: boolean
 
+      ytlowcontrastmode:
+        description: "Integrate YTLowContrastMode(19.21.2+)"
+        default: false
+        required: false
+        type: boolean
+
 permissions:
   contents: read
 
@@ -134,7 +140,7 @@ jobs:
       - name: Hide Sensitive Inputs
         uses: levibostian/action-hide-sensitive-inputs@v1
         with:
-          exclude_inputs: bundle_id,display_name,youpip,ytuhd,ryd,ytabconfig,youquality,gonerino,ytweaks,yougetcaption,demc,youchoose,ythold,volumeboost,nativeshare,opensafari,pleasedontstopthemusic
+          exclude_inputs: bundle_id,display_name,youpip,ytuhd,ryd,ytabconfig,youquality,gonerino,ytweaks,yougetcaption,demc,youchoose,ythold,volumeboost,nativeshare,opensafari,pleasedontstopthemusic,ytlowcontrastmode
 
       - name: Download and Validate IPA
         env:
@@ -408,6 +414,13 @@ jobs:
           cd PleaseDontStopTheMusic
           make -C rootless clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
           mv rootless/packages/*.deb ${{ github.workspace }}/pleasedontstopthemusic.deb
+
+      - name: Clone and Build YTLowContrastMode
+        if: inputs.ytlowcontrastmode == true
+        run: |
+          git clone --quiet --depth=1 https://github.com/Mark02-2012/YTLowContrastMode.git
+          cd YTLowContrastMode && make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless ARCHS=arm64
+          mv packages/*.deb ${{ github.workspace }}/ytlowcontrastmode.deb
 
       - name: Inject Tweaks Into IPA
         env:
